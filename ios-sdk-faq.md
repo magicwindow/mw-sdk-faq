@@ -12,7 +12,7 @@
 如果没有打开按钮，请确认下面的内容都是填写正确 （applinks:s.mlinks.cc）
 ![](images/ios-1.jpg)
 
-3.什么是URL Scheme，怎么配置？
+3.什么是URL Scheme，怎么配置？<br>
 iOS系统中 App之前是相互隔离的，通过URL Scheme，App之间可以相互调用，并且可以传递参数。<br>
 在Xcode中，选中Target－Info－URL Types。比如填写magicWindow
 在手机浏览器中输入 URL Scheme:// （比如 magicWindow://），如果可以唤起App，说明该URL Scheme 配置成功
