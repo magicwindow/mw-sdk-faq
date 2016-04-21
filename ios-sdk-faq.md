@@ -24,5 +24,6 @@ iOS系统中 App之前是相互隔离的，通过URL Scheme，App之间可以相
 * update 相应的provisioning Profiles
 * 重新编译app即可
 
-5.跳转URL怎么对应不同的页面？scheme uri 怎么配置？
+5.跳转URL怎么对应不同的页面？scheme uri 怎么配置？<br>
+  这里有iOS比较详细的配置：
 http://www.cocoachina.com/industry/20140522/8514.html
