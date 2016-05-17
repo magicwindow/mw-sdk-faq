@@ -39,4 +39,11 @@ A:第一步：xxx/res/values/styles.xml中加入自定义Activity的Theme，如�
     android:label="@string/app_name"  
     android:theme="@style/Transparent" 
 ```
-
+###Q6.通过mLink跳转直达的页面，如何做到，“先显示启动动画，然后再做相应跳转？”
+A:可以在动画结束时再调用router,如下：<br>
+```Java
+Uri mLink = getIntent().getData();
+            if(mLink!=null){
+                MLink.getInstance(this).router(mLink);
+            }            
+```
