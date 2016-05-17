@@ -39,7 +39,7 @@ A:第一步：xxx/res/values/styles.xml中加入自定义Activity的Theme，如�
     android:label="@string/app_name"  
     android:theme="@style/Transparent" 
 ```
-###Q6.通过mLink跳转直达的页面，如何做到，“先显示启动动画，然后再做相应跳转？”
+###Q6.通过mLink跳转直达的页面，如何做到“先显示启动动画，然后再做相应跳转”
 A:可以在动画结束时再调用router,如下：<br>
 ```Java
 Uri mLink = getIntent().getData();
@@ -47,3 +47,24 @@ Uri mLink = getIntent().getData();
                 MLink.getInstance(this).router(mLink);
             }            
 ```
+###Q6.通过mLink跳转直达的页面，如何做到“返回时进入首页，而不是退出程序”
+A:可以处理直达页面的返回函数。<br>
+我们以跳转页为DetailActivity为例：<br>
+第一步，在MLink.getInstance(this).register()函数的回调函数增加一个intent.putExtra("mlink",true);<br>
+```Java
+MLink.getInstance(this).register("mLink的Key", new MLinkCallback() {
+            public void execute(Map<String, String> paramMap, Uri uri, Context context) {
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                if (paramMap != null) {
+                    for (Map.Entry<String, String> param : paramMap.entrySet()) {
+                        intent.putExtra(param.getKey(), param.getValue());
+                    }
+                }
+                intent.putExtra("mlink",true);
+                this.startActivity(intent);
+
+            }
+        });        
+```
+第二步：在DetailActivity内的返回函数内，根据intent.getBooleanExtra("mlink",false)是否为true来跳转到首页。
