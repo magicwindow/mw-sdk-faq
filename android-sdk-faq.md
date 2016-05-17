@@ -18,8 +18,25 @@ A:如果显示微信分享等jar包重复。（特别如果集成了shareSDK，�
 A:将assets文件夹下的文件拷贝到相应文件夹即可。
 
 ###Q4.不能分享
-A:现阶段魔窗支持微信分享。
+A:现阶段魔窗支持微信分享。<br>
 1）前往微信开放平台申请微信AppID，
 [参考文档](https://open.weixin.qq.com)<br>
 注意：包名以及应用签名不要写错。<br>
 2）将微信AppID填写在魔窗后台->帐号设置->应用管理->设置分享平台<br>
+
+###Q5.mLink集成跳转到相应activity时黑屏
+A:第一步：xxx/res/values/styles.xml中加入自定义Activity的Theme，如下所示：<br>
+```Java
+<style name="Transparent" parent="android:Theme.Light">  
+        <!--将Activity的Theme设置成透明-->  
+        <item name="android:windowIsTranslucent">true</item>  
+    </style>  
+```
+第二步：在AndroidManifest.xml中将第二个Activity的"android:theme"属性设置成刚才自定义的主题样式。如下所示：<br>
+```Java
+<activity  
+    android:name="com.yutao.customer.CustomerActivity"  
+    android:label="@string/app_name"  
+    android:theme="@style/Transparent" 
+```
+
