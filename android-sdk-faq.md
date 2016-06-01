@@ -68,3 +68,7 @@ MLink.getInstance(this).register("mLink的Key", new MLinkCallback() {
         });        
 ```
 第二步：在DetailActivity内的返回函数内，根据intent.getBooleanExtra("mlink",false)是否为true来跳转到首页。
+
+###Q8.短链内的参数值能动态修改么？
+A:可以，短链支持将参数的动态值作为 query 放在后面<br>
+例如:http://a.t.mlinks.cc/ANax?id=12345
