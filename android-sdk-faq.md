@@ -74,42 +74,39 @@ A:可以，短链支持将参数的动态值作为 query 放在后面<br>
 例如:http://a.t.mlinks.cc/ANax?id=12345
 
 ###Q9.App安装的前提下，短链依旧前往下载App页面。
-A:换一台其他品牌的手机验证，因为有些机型原生浏览器不支持scheme。如果依旧不行，则排查是否Scheme配置错误。
-遇到这个问题的时候，我们的第一反应是检查Scheme有没有配置错误。
-因为程序未能打开App，所以肯定是集成的初始阶段出了问题。
-检查AndroidManifest.xml内的Scheme是否配置正确。
-此处比较容易出错的是，后台配置scheme需要”://”，而Android内配置时不需要”://”
+A:换一台其他品牌的手机验证，因为有些机型原生浏览器不支持scheme。如果依旧不行，则排查是否Scheme配置错误。<br>
+遇到这个问题的时候，我们的第一反应是检查Scheme有没有配置错误。因为程序未能打开App，所以肯定是集成的初始阶段出了问题。<br>
+检查AndroidManifest.xml内的Scheme是否配置正确。此处比较容易出错的是，后台配置scheme需要”://”，而Android内配置时不需要”://”
 
 ###Q10.App安装的前提下，短链只能打开首页，未能进入具体页面。
-A:有如下可能原因。 
-①	检查register回调有没有写错。（register要写在启动页的onCreate内）
-②	检查router入口有没有漏掉或者写错位置。 （router是真正的入口，如果有启动动画等，可以方在动画后。）
-③	程序做了混淆，但是没有将魔窗的keep出来。
-④	如果开启了应用宝跳转，则检查checkYYB接口有没有漏写，（checkYYB需要放在耗时的启动之后，跟启动首页的startActivity放在一起。）
+A:有如下可能原因。 <br>
+①	检查register回调有没有写错。（register要写在启动页的onCreate内）<br>
+②	检查router入口有没有漏掉或者写错位置。 （router是真正的入口，如果有启动动画等，可以方在动画后。）<br>
+③	程序做了混淆，但是没有将魔窗的keep出来。<br>
+④	如果开启了应用宝跳转，则检查checkYYB接口有没有漏写，（checkYYB需要放在耗时的启动之后，跟启动首页的startActivity放在一起。）<br>
 如果以上都没有错误，我们可以利用Charles抓包，查看dpls/v2接口内有没有正确返回mLink的服务uri。从而判断后台是否配置正确。
 
 ###Q11.应用打开具体页面后，又重新打开了首页。
-A:此问题分两种情况
-①未开启应用宝时， 说明router调用时，有一个handler之类的延迟操作重新打开了首页。走router时需要将handler排除掉。
+A:此问题分两种情况<br>
+①未开启应用宝时， 说明router调用时，有一个handler之类的延迟操作重新打开了首页。走router时需要将handler排除掉。<br>
 ②开启应用宝时，说明checkYYB接口调用前后有比较耗时的初始化操作，将checkYYB移到耗时操作之后，跟进入首页的startActivity并列放置即可。
 
 ###Q12.集成了应用宝跳转，但是从微信打开时依旧会显示中间页,没有直接打开App。
 A：说明后台没有打开应用宝开关。需要在魔窗后台将下载链接改为应用宝的地址，并且在mLink服务的高级设置内打开应用宝跳转开关。
 
 ###Q13.可以跳转到具体页面，但是不知道如何拿到参数。
-A：如果利用自定义注解，则所有的参数，都放在MLinkCallback回调的Map<String, String> paramMap内。
+A：如果利用自定义注解，则所有的参数，都放在MLinkCallback回调的Map<String, String> paramMap内。<br>
 如果利用注解，则可用getIntent().getStringExtra("key")获取。
-
 
 ###Q14.通过短链进入具体页面后，清除数据再次打开App，依旧进入短链对应的具体页面。
 A:“程序安装后第一次打开，魔窗mLink会跟后台通信实现场景还原。App清除数据后，mLink会判断程序为第一次安装。此时请求后台并匹配成功。所以会进入具体页面”。<br>
-用户实际使用时基本不会发生此类情况。属于极小概率事件。
+用户实际使用时基本不会发生此类情况。属于极小概率事件。<br>
 
 
-经过以上分析，我们总结一下常见错误以及注意点：
-①	基础配置不要写错，比如Session和AndroidManifest.xml内的APP_ID。
-②	register不要写错。（注解方式和自定义方式二选一）
-③	router不要漏写，且注意书写的位置。如果有开机动画，或者handler之类，要根据实际情况填写。
-④	如果开启了应用宝，注意checkYYB接口不要遗漏，注意一定要写在耗时的初始化之后，跟进入首页的startActivity放在一起。
-⑤	混淆时注意将魔窗keep出来。
-⑥	后台填写Scheme和配置mLink服务需要注意，其中Scheme需要用全小写字母。如果有数字，数字不能放在开头。
+经过以上分析，我们总结一下常见错误以及注意点：<br>
+①	基础配置不要写错，比如Session和AndroidManifest.xml内的APP_ID。<br>
+②	register不要写错。（注解方式和自定义方式二选一）<br>
+③	router不要漏写，且注意书写的位置。如果有开机动画，或者handler之类，要根据实际情况填写。<br>
+④	如果开启了应用宝，注意checkYYB接口不要遗漏，注意一定要写在耗时的初始化之后，跟进入首页的startActivity放在一起。<br>
+⑤	混淆时注意将魔窗keep出来。<br>
+⑥	后台填写Scheme和配置mLink服务需要注意，其中Scheme需要用全小写字母。如果有数字，数字不能放在开头。<br>
