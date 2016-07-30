@@ -48,7 +48,23 @@ Uri mLink = getIntent().getData();
             }            
 ```
 ###Q7.通过mLink跳转直达的页面，如何做到“返回时进入首页，而不是退出程序”
-A:可以处理直达页面的返回函数。<br>
+A:有两个方案<br>
+方案1. 将启动页的启动方式设置为singleTask模式，然后在其Activity内覆写onNewIntent()
+```
+    @Override
+    public void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        this.setIntent(intent);
+        
+        Uri mLink = intent.getData();
+        if (mLink != null) {
+            MagicWindowSDK.getMLink().router(mLink);
+        } else {
+            MLink.getInstance(this).checkYYB();
+        }
+    }
+```
+方案2.可以处理直达页面的返回函数。<br>
 我们以跳转页为DetailActivity为例：<br>
 第一步，在MLink.getInstance(this).register()函数的回调函数增加一个intent.putExtra("mlink",true);<br>
 ```Java
@@ -102,6 +118,22 @@ A：如果利用自定义注解，则所有的参数，都放在MLinkCallback回
 A:“程序安装后第一次打开，魔窗mLink会跟后台通信实现场景还原。App清除数据后，mLink会判断程序为第一次安装。此时请求后台并匹配成功。所以会进入具体页面”。<br>
 用户实际使用时基本不会发生此类情况。属于极小概率事件。<br>
 
+###Q15.程序在后台时，从微信内通过应用宝跳转无法跳转到具体页。
+A:将启动页的启动方式设置为singleTask模式，然后在其Activity内覆写onNewIntent()
+```
+    @Override
+    public void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        this.setIntent(intent);
+        
+        Uri mLink = intent.getData();
+        if (mLink != null) {
+            MagicWindowSDK.getMLink().router(mLink);
+        } else {
+            MLink.getInstance(this).checkYYB();
+        }
+    }
+```
 
 经过以上分析，我们总结一下常见错误以及注意点：<br>
 ①	基础配置不要写错，比如Session和AndroidManifest.xml内的APP_ID。<br>
