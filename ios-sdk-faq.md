@@ -51,7 +51,7 @@ OS系统中 App之前是相互隔离的，通过URL Scheme，App之间可以相�
 ####Q7.App Store提审时，对Advertising Identifier（IDFA）的配置
 
 SDK中使用了IDFA，App在往AppStore提审的时候，需要勾选以下选项
-![](http://7xk40m.com2.z0.glb.qiniucdn.com/img_doc_06-025.png)
+![](images/ios7-1.png)
 （1）Serve advertisements within the app
 
 服务app中的广告。如果你的app中集成了广告，你需要勾选这一项。
