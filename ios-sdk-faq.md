@@ -9,13 +9,13 @@
 ![](images/ios1-1.png)
 
 在Safari中打开链接，会出现smart banner，点击“打开”按钮，Universal link将恢复正常
-![](images/ios1-2.png =500x)
+![](images/ios1-2.png)
 
 (3)Team ID 是否填写正确
 
 如下图，Team ID 和 Prefix正常情况下值都是一样的，当两处的值不一样的时候，优先使用Prefix
-![](http://7xk40m.com2.z0.glb.qiniucdn.com/img-20160607-05.png =600x)
-![](images/ios1-3.png =600x)
+![](http://7xk40m.com2.z0.glb.qiniucdn.com/img-20160607-05.png)
+![](images/ios1-3.png)
 
 (4)自动打包和手动打包
 
@@ -24,7 +24,7 @@
 ####Q2.在编辑Associated Domains 的时候，报错，错误信息“An App ID with Identifier ‘com.XXX’ is not available”，怎么解决？
 ![](http://7xk40m.com2.z0.glb.qiniucdn.com/img-20160601-02.png)
 进入苹果开发者帐号，将当前App ID 的Associated Domains 设置成Enable，如下图：
-![](images/ios2-1.png =600x)
+![](images/ios2-1.png)
 
 ####Q3.什么是URL Scheme，怎么配置
 OS系统中 App之前是相互隔离的，通过URL Scheme，App之间可以相互调用，并且可以传递参数。
@@ -40,7 +40,7 @@ OS系统中 App之前是相互隔离的，通过URL Scheme，App之间可以相�
 
 ####Q5.微信分享，登录或者支付不能正常使用
 请在App管理中填写正确的微信AppID（前往微信开放平台申请微信AppID，<https://open.weixin.qq.com>）
-![](images/ios5-1.png =600x)
+![](images/ios5-1.png)
 
 ####Q6.通过短链进入具体页面后，清除数据再次打开App，依旧进入短链对应的具体页面。
 
@@ -51,7 +51,7 @@ OS系统中 App之前是相互隔离的，通过URL Scheme，App之间可以相�
 ####Q7.App Store提审时，对Advertising Identifier（IDFA）的配置
 
 SDK中使用了IDFA，App在往AppStore提审的时候，需要勾选以下选项
-![](http://7xk40m.com2.z0.glb.qiniucdn.com/img_doc_06-025.png =600x)
+![](http://7xk40m.com2.z0.glb.qiniucdn.com/img_doc_06-025.png)
 （1）Serve advertisements within the app
 
 服务app中的广告。如果你的app中集成了广告，你需要勾选这一项。
