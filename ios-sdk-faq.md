@@ -6,7 +6,7 @@
 (2)是否被用户手动取消
 
 当使用Universal link打开App之后，右上角会出现“mlinks.cc”,点击右上角会取消Universal link
-![](images/ios1-1.png =300x)
+![](images/ios1-1.png)
 
 在Safari中打开链接，会出现smart banner，点击“打开”按钮，Universal link将恢复正常
 ![](images/ios1-2.png =500x)
