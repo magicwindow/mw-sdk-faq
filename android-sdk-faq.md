@@ -135,6 +135,42 @@ A:将启动页的启动方式设置为singleTask模式，然后在其Activity内
         }
     }
 ```
+###Q16.提示MLink内的defaultMLinkCallback持有activity导致内存泄露。
+A:register内的回调需要用application的Context，且方法需要用static。具体如下
+
+```
+public static void registerForMLinkCallback() {
+    MLink mLink = MagicWindowSDK.getMLink();
+    mLink.register("mLink服务Key", new MLinkCallback() {
+        public void execute(Map<String, String> paramMap, Uri uri, Context context) {
+            //跳转
+            MLinkIntentBuilder.buildIntent(paramMap, context, DetailActivity.class);
+
+        }
+    });
+    mLink.register("detail", new MLinkCallback() {
+        public void execute(Map<String, String> paramMap, Uri uri, Context context) {
+
+            Toast.makeText(context, "open detail:" + uri, Toast.LENGTH_LONG).show();
+            MLinkIntentBuilder.buildIntent(paramMap, context, DetailActivity.class);
+
+        }
+    });
+    mLink.register("product", new MLinkCallback() {
+        public void execute(Map<String, String> paramMap, Uri uri, Context context) {
+            Intent intent = new Intent(context, DetailActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            if(paramMap !=null){
+                for (Map.Entry<String, String> param : paramMap.entrySet()) {
+                    intent.putExtra(param.getKey(), param.getValue());
+                }
+            }
+            context.startActivity(intent);
+
+        }
+    });
+}
+```
 
 经过以上分析，我们总结一下常见错误以及注意点：<br>
 ①	基础配置不要写错，比如Session和AndroidManifest.xml内的APP_ID。<br>
