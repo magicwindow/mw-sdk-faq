@@ -48,23 +48,7 @@ Uri mLink = getIntent().getData();
             }            
 ```
 ###Q7.通过mLink跳转直达的页面，如何做到“返回时进入首页，而不是退出程序”
-A:有两个方案<br>
-方案1. 将启动页的启动方式设置为singleTop模式，然后在其Activity内覆写onNewIntent()
-```
-    @Override
-    public void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        this.setIntent(intent);
-        
-        Uri mLink = intent.getData();
-        if (mLink != null) {
-            MagicWindowSDK.getMLink().router(mLink);
-        } else {
-            MLink.getInstance(this).checkYYB();
-        }
-    }
-```
-方案2.可以处理直达页面的返回函数。<br>
+A:可以处理直达页面的返回函数。<br>
 我们以跳转页为DetailActivity为例：<br>
 第一步，在MLink.getInstance(this).register()函数的回调函数增加一个intent.putExtra("mlink",true);<br>
 ```Java
@@ -172,6 +156,11 @@ public static void registerForMLinkCallback() {
 }
 ```
 
+###Q17.开启了应用宝跳转，为何getIntent().getData()为空。
+A:应用宝打开App是通过包名来直接打开App的，而不是scheme，所以getData()为空。<br>
+也正因如此，所以我们需要在getData()为空时调用checkYYB()接口，来通过后台拿到具体页面的Scheme。从而跳转到具体页面<br>
+
+##注意点
 经过以上分析，我们总结一下常见错误以及注意点：<br>
 ①	基础配置不要写错，比如Session和AndroidManifest.xml内的APP_ID。<br>
 ②	register不要写错。（注解方式和自定义方式二选一）<br>
