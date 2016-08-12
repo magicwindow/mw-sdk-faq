@@ -49,7 +49,7 @@ Uri mLink = getIntent().getData();
 ```
 ###Q7.通过mLink跳转直达的页面，如何做到“返回时进入首页，而不是退出程序”
 A:有两个方案<br>
-方案1. 将启动页的启动方式设置为singleTask模式，然后在其Activity内覆写onNewIntent()
+方案1. 将启动页的启动方式设置为singleTop模式，然后在其Activity内覆写onNewIntent()
 ```
     @Override
     public void onNewIntent(Intent intent) {
@@ -120,7 +120,7 @@ A:“程序安装后第一次打开，魔窗mLink会跟后台通信实现场景�
 用户实际使用时基本不会发生此类情况。属于极小概率事件。<br>
 
 ###Q15.程序在后台时，从微信内通过应用宝跳转无法跳转到具体页。
-A:将启动页的启动方式设置为singleTask模式，然后在其Activity内覆写onNewIntent()
+A:将启动页的启动方式设置为singleTop模式，然后在其Activity内覆写onNewIntent()
 ```
     @Override
     public void onNewIntent(Intent intent) {
