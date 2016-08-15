@@ -143,12 +143,17 @@ public static void registerForMLinkCallback() {
     });
 }
 ```
+###Q17.如何开启应用宝跳转
+A:<br>
+1、魔窗后台，先进入“App管理”页面修改Android的App默认下载链接为应用宝下载链接。<br>
+2、魔窗后台，进入高级设置中打开应用宝跳转开关。<br>
+3、代码集成，要在代码的相应位置需要调用checkYYB（在耗时的启动之后，跟启动首页的startActivity并列放置）<br>
 
-###Q17.开启了应用宝跳转，为何getIntent().getData()为空。
+###Q18.开启了应用宝跳转，为何getIntent().getData()为空
 A:应用宝打开App是通过包名来直接打开App的，而不是scheme，所以getData()为空。<br>
 也正因如此，所以我们需要在getData()为空时调用checkYYB()接口，来通过后台拿到具体页面的Scheme。从而跳转到具体页面<br>
 
-###Q18.mLink集成跳转到相应activity时黑屏
+###Q19.mLink集成跳转到相应activity时黑屏
 A:第一步：xxx/res/values/styles.xml中加入自定义Activity的Theme，如下所示：<br>
 ```Java
 <style name="Transparent" parent="android:Theme.Light">  
