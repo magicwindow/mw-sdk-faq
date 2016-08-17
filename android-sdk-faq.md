@@ -36,7 +36,29 @@ Uri mLink = getIntent().getData();
             }            
 ```
 ###Q7.通过mLink跳转直达的页面，如何做到“返回时进入首页，而不是退出程序”
-A:可以处理直达页面的返回函数。<br>
+A:有两种方法：<br>
+方法①<br>
+启动页面调用router的地方稍作调整，将跳转到首页的代码放在getIntent().getData()!=null的判断外面：<br>
+```Java
+@Override
+public void onCreate(Bundle savedInstanceState) {
+// TODO其他代码
+
+    //跳转到首页
+    gotoHome();
+    //跳转router调用
+    if (getIntent().getData()!=null) {
+        MLink.getInstance(this).router(getIntent().getData());
+    } else {
+        //如果需要应用宝跳转，则调用。否则不需要
+        MLink.getInstance(this).checkYYB();
+    }
+    //跳转后结束当前activity
+    finish();
+}
+```
+方法②<br>
+可以处理直达页面的返回函数。<br>
 我们以跳转页为DetailActivity为例：<br>
 第一步，在MLink.getInstance(this).register()函数的回调函数增加一个intent.putExtra("mlink",true);<br>
 ```Java
