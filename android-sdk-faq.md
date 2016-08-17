@@ -92,7 +92,23 @@ A:“程序安装后第一次打开，魔窗mLink会跟后台通信实现场景�
 用户实际使用时基本不会发生此类情况。属于极小概率事件。<br>
 
 ###Q15.程序在后台时，从微信内通过应用宝跳转无法跳转到具体页。
-A:将启动页的启动方式设置为singleTop模式，然后在其Activity内覆写onNewIntent()
+A:
+情况①，在公共Activity的onStart()方法中调用如下代码。
+```
+public class BaseActivity extends AppCompatActivity {
+  @Override
+  protected void onStart() {
+    super.onStart();
+    Uri mLink = getIntent().getData();
+    if (mLink != null) {
+        MagicWindowSDK.getMLink().router(mLink);
+    } else {
+        MLink.getInstance(this).checkYYB();
+    }
+  }
+}
+```
+情况②，启动页的启动方式为singleTop模式时，需要在其Activity内覆写onNewIntent()
 ```
     @Override
     public void onNewIntent(Intent intent) {
@@ -105,7 +121,7 @@ A:将启动页的启动方式设置为singleTop模式，然后在其Activity内�
         } else {
             MLink.getInstance(this).checkYYB();
         }
-    }
+   }
 ```
 ###Q16.提示MLink内的defaultMLinkCallback持有activity导致内存泄露。
 A:register内的回调需要用application的Context，且方法需要用static。具体如下
