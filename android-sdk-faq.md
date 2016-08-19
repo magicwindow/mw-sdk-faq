@@ -72,7 +72,7 @@ MLink.getInstance(this).register("mLink的Key", new MLinkCallback() {
                     }
                 }
                 intent.putExtra("mlink",true);
-                this.startActivity(intent);
+                context.startActivity(intent);
 
             }
         });        
