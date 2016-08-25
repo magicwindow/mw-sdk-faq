@@ -48,7 +48,16 @@ OS系统中 App之前是相互隔离的，通过URL Scheme，App之间可以相�
 
 用户实际使用时基本不会发生此类情况。属于极小概率事件。
 
-####Q7.App Store提审时，对Advertising Identifier（IDFA）的配置
+####Q7.在微信中点击短链接唤起App，在App中收到的动态参数的值不正确
+
+可能是微信缓存造成的，退出微信登录，重新登录微信点击短链接
+
+####Q8.短链内的参数值能动态修改么？
+可以，短链支持将参数的动态值作为 query 放在后面
+
+例如:http://a.t.mlinks.cc/ANax?id=12345
+
+####Q9.App Store提审时，对Advertising Identifier（IDFA）的配置
 
 SDK中使用了IDFA，App在往AppStore提审的时候，需要勾选以下选项
 ![](images/ios7-1.png)
