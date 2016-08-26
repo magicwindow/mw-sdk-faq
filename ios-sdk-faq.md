@@ -60,7 +60,7 @@ OS系统中 App之前是相互隔离的，通过URL Scheme，App之间可以相�
 ####Q9.App Store提审时，对Advertising Identifier（IDFA）的配置
 
 SDK中使用了IDFA，App在往AppStore提审的时候，需要勾选以下选项
-![](images/ios7-1.png)
+![](images/ios9-1.png)
 （1）Serve advertisements within the app
 
 服务app中的广告。如果你的app中集成了广告，你需要勾选这一项。
@@ -77,5 +77,15 @@ SDK中使用了IDFA，App在往AppStore提审的时候，需要勾选以下选�
 
 这一项下的内容其实就是对你的app使用idfa的目的做下确认，只要你选择了采集idfa，那么这一项都是需要勾选的。
 
+####Q10.手动在工程中添加SDK，初始化SDK的时候出现crash
+在AppDelegate中调用registerApp方法，初始化SDK的时候，出现crash信息，请确认是否将整个的SDK包都放到了整个工程中，并且确认MagicWindow.bundle是否成功加入到了相应的target中
 
+**建议使用Cocoapods集成SDK**
+![](images/ios10-1.png)
 
+####Q11.一键唤起成功，场景还原失败
+点击短链接的时间和安装App，第一次打开App的时间在60分钟之内，就会场景还原，（默认60分钟，时间可以在后台进行更改）。
+
+点击短链接一键唤起成功的话，场景还原失败的话，需要debug看下，是否受到了App启动页或者引导页的影响。
+
+场景还原和一键唤起的时候，都会走registerMLinkHandlerWithKey:(nonnull NSString *)key handler:(CallBackMLink)handler这个方法。
