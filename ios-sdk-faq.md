@@ -6,7 +6,7 @@ FAQ分类
   * Q1.mLink和App都配置了Universal link，但是无法从微信跳转到App？
   * Q2.在编辑Associated Domains 的时候，报错，错误信息“An App ID with Identifier ‘com.XXX’ is not available”，怎么解决？
 * [短链接](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#短链接)
-  * Q3.通过短链进入具体页面后，清除数据再次打开App，依旧进入短链对应的具体页面。
+  * Q3.通过短链进入具体页面后，删除App，重现安装App，依旧进入短链对应的具体页面。
   * Q4.短链内的参数值能动态修改么？
   * Q5.一键唤起成功，场景还原失败
   * Q6.在微信中点击短链接唤起App，在App中收到的动态参数的值不正确
@@ -17,7 +17,6 @@ FAQ分类
   * Q9.什么是URL Scheme，怎么配置
   * Q10.微信分享，登录或者支付不能正常使用
   * Q11.手动在工程中添加SDK，初始化SDK的时候出现crash
-  * Q12.建议使用Cocoapods集成SDK
 
 
 Universal link
@@ -51,7 +50,7 @@ Universal link
 
 短链接
 ===
-###Q3.通过短链进入具体页面后，清除数据再次打开App，依旧进入短链对应的具体页面。
+###Q3.通过短链进入具体页面后，删除App，重现安装App，依旧进入短链对应的具体页面。
 
 程序安装后第一次打开，魔窗mLink会跟后台通信实现场景还原。App清除数据后，mLink会判断程序为第一次安装。此时请求后台并匹配成功。所以会进入具体页面。
 
@@ -119,6 +118,6 @@ OS系统中 App之前是相互隔离的，通过URL Scheme，App之间可以相�
 ###Q11.手动在工程中添加SDK，初始化SDK的时候出现crash
 在AppDelegate中调用registerApp方法，初始化SDK的时候，出现crash信息，请确认是否将整个的SDK包都放到了整个工程中，并且确认MagicWindow.bundle是否成功加入到了相应的target中
 
-###Q12.建议使用Cocoapods集成SDK
+**建议使用Cocoapods集成SDK，pod 'MagicWindowSDK'**
 ![](images/ios10-1.png)
 
