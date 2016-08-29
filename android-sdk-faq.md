@@ -8,6 +8,7 @@ FAQ分类
 * [短链接](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#短链接)
 * [mLink](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#mLink)
 * [应用宝](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#应用宝)
+* [其他](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#其他)
 
 魔窗位
 ===
@@ -234,7 +235,8 @@ A:此问题分两种情况<br>
 ②开启应用宝时，说明checkYYB接口调用前后有比较耗时的初始化操作，将checkYYB移到耗时操作之后，跟进入首页的startActivity并列放置即可。
 
 
-##注意点
+其他
+===
 经过以上分析，我们总结一下常见错误以及注意点：<br>
 ①	基础配置不要写错，比如Session和AndroidManifest.xml内的APP_ID。<br>
 ②	register不要写错。（注解方式和自定义方式二选一）<br>
