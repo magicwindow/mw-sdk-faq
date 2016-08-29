@@ -1,4 +1,15 @@
 #魔窗Android SDK FAQ
+
+FAQ分类
+---
+
+* [魔窗位]（https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#魔窗位）
+* [分享]（https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#分享）
+
+
+魔窗位
+===
+
 ###Q1.魔窗位活动不能展示
 A:如果出现此问题，请按照以下步骤排查。<br>
 1. AndroidManifest.xml内正确填写魔窗APP_ID以及MWActivity等。<br>
@@ -14,6 +25,9 @@ A:如果显示微信分享等jar包重复。（特别如果集成了shareSDK，�
   MWConfiguration config = new MWConfiguration(this);
   config.setSharePlatform(MWConfiguration.SHARE_SDK);
 ```
+
+分享
+===
 ###Q3.分享弹框缺少图标
 A:将assets文件夹下的文件拷贝到相应文件夹即可。
 
