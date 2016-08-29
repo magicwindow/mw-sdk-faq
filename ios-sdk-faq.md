@@ -3,6 +3,8 @@
 FAQ分类
 ---
 * [Universal link](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#universal-link)
+* [短链接](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#短链接)
+
 
 
 Universal link
@@ -34,6 +36,28 @@ Universal link
 进入苹果开发者帐号，将当前App ID 的Associated Domains 设置成Enable，如下图：
 ![](images/ios2-1.png)
 
+短链接
+===
+###Q3.通过短链进入具体页面后，清除数据再次打开App，依旧进入短链对应的具体页面。
+
+程序安装后第一次打开，魔窗mLink会跟后台通信实现场景还原。App清除数据后，mLink会判断程序为第一次安装。此时请求后台并匹配成功。所以会进入具体页面。
+
+用户实际使用时基本不会发生此类情况。属于极小概率事件。
+
+###Q4.短链内的参数值能动态修改么？
+可以，短链支持将参数的动态值作为 query 放在后面
+
+例如:http://a.t.mlinks.cc/ANax?id=12345
+
+###Q5.一键唤起成功，场景还原失败
+点击短链接的时间和安装App，第一次打开App的时间在60分钟之内，就会场景还原，（默认60分钟，时间可以在后台进行更改）。
+
+点击短链接一键唤起成功的话，场景还原失败的话，需要debug看下，是否受到了App启动页或者引导页的影响。
+
+场景还原和一键唤起的时候，都会走registerMLinkHandlerWithKey:(nonnull NSString *)key handler:(CallBackMLink)handler这个方法。
+
+
+
 ####Q3.什么是URL Scheme，怎么配置
 OS系统中 App之前是相互隔离的，通过URL Scheme，App之间可以相互调用，并且可以传递参数。
 
@@ -50,20 +74,13 @@ OS系统中 App之前是相互隔离的，通过URL Scheme，App之间可以相�
 请在App管理中填写正确的微信AppID（前往微信开放平台申请微信AppID，<https://open.weixin.qq.com>）
 ![](images/ios5-1.png)
 
-####Q6.通过短链进入具体页面后，清除数据再次打开App，依旧进入短链对应的具体页面。
 
-程序安装后第一次打开，魔窗mLink会跟后台通信实现场景还原。App清除数据后，mLink会判断程序为第一次安装。此时请求后台并匹配成功。所以会进入具体页面。
-
-用户实际使用时基本不会发生此类情况。属于极小概率事件。
 
 ####Q7.在微信中点击短链接唤起App，在App中收到的动态参数的值不正确
 
 可能是微信缓存造成的，退出微信登录，重新登录微信点击短链接
 
-####Q8.短链内的参数值能动态修改么？
-可以，短链支持将参数的动态值作为 query 放在后面
 
-例如:http://a.t.mlinks.cc/ANax?id=12345
 
 ####Q9.App Store提审时，对Advertising Identifier（IDFA）的配置
 
@@ -91,9 +108,3 @@ SDK中使用了IDFA，App在往AppStore提审的时候，需要勾选以下选�
 **建议使用Cocoapods集成SDK**
 ![](images/ios10-1.png)
 
-####Q11.一键唤起成功，场景还原失败
-点击短链接的时间和安装App，第一次打开App的时间在60分钟之内，就会场景还原，（默认60分钟，时间可以在后台进行更改）。
-
-点击短链接一键唤起成功的话，场景还原失败的话，需要debug看下，是否受到了App启动页或者引导页的影响。
-
-场景还原和一键唤起的时候，都会走registerMLinkHandlerWithKey:(nonnull NSString *)key handler:(CallBackMLink)handler这个方法。
