@@ -6,7 +6,7 @@ FAQ分类
 * [魔窗位](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#魔窗位)
 * [分享](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#分享)
 * [短链接](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#短链接)
-* [mLink](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#MLink)
+* [mLink](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#mlink)
 * [应用宝](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#应用宝)
 * [其他](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#其他)
 
