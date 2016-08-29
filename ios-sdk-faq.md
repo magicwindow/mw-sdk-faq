@@ -4,6 +4,8 @@ FAQ分类
 ---
 * [Universal link](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#universal-link)
 * [短链接](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#短链接)
+* [app发布](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#app发布)
+* [其他](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#其他)
 
 
 
@@ -56,33 +58,19 @@ Universal link
 
 场景还原和一键唤起的时候，都会走registerMLinkHandlerWithKey:(nonnull NSString *)key handler:(CallBackMLink)handler这个方法。
 
+###Q6.在微信中点击短链接唤起App，在App中收到的动态参数的值不正确
 
+可能是微信缓存造成的，退出微信登录，重新登录微信点击短链接
 
-####Q3.什么是URL Scheme，怎么配置
-OS系统中 App之前是相互隔离的，通过URL Scheme，App之间可以相互调用，并且可以传递参数。
-
-在Xcode中，选中Target－Info－URL Types。比如填写magicWindow 在手机浏览器中输入 URL Scheme:// （比如 magicWindow://），如果可以唤起App，说明该URL Scheme 配置成功。
-
-可以参考：<http://www.magicwindow.cn/doc/#uri-scheme>
-
-####Q4.在Debug下测试正常，但是在Release下不能正常一键唤起
+app发布
+===
+###Q7.在Debug下测试正常，但是在Release下不能正常一键唤起
 (1)后台配置的Team ID是否和App的编译证书相匹配
 
 (2)update 相应的provisioning Profiles
 
-####Q5.微信分享，登录或者支付不能正常使用
-请在App管理中填写正确的微信AppID（前往微信开放平台申请微信AppID，<https://open.weixin.qq.com>）
-![](images/ios5-1.png)
 
-
-
-####Q7.在微信中点击短链接唤起App，在App中收到的动态参数的值不正确
-
-可能是微信缓存造成的，退出微信登录，重新登录微信点击短链接
-
-
-
-####Q9.App Store提审时，对Advertising Identifier（IDFA）的配置
+###Q8.App Store提审时，对Advertising Identifier（IDFA）的配置
 
 SDK中使用了IDFA，App在往AppStore提审的时候，需要勾选以下选项
 ![](images/ios9-1.png)
@@ -102,9 +90,23 @@ SDK中使用了IDFA，App在往AppStore提审的时候，需要勾选以下选�
 
 这一项下的内容其实就是对你的app使用idfa的目的做下确认，只要你选择了采集idfa，那么这一项都是需要勾选的。
 
+####Q3.什么是URL Scheme，怎么配置
+OS系统中 App之前是相互隔离的，通过URL Scheme，App之间可以相互调用，并且可以传递参数。
+
+在Xcode中，选中Target－Info－URL Types。比如填写magicWindow 在手机浏览器中输入 URL Scheme:// （比如 magicWindow://），如果可以唤起App，说明该URL Scheme 配置成功。
+
+可以参考：<http://www.magicwindow.cn/doc/#uri-scheme>
+
+
+####Q5.微信分享，登录或者支付不能正常使用
+请在App管理中填写正确的微信AppID（前往微信开放平台申请微信AppID，<https://open.weixin.qq.com>）
+![](images/ios5-1.png)
+
+
 ####Q10.手动在工程中添加SDK，初始化SDK的时候出现crash
 在AppDelegate中调用registerApp方法，初始化SDK的时候，出现crash信息，请确认是否将整个的SDK包都放到了整个工程中，并且确认MagicWindow.bundle是否成功加入到了相应的target中
 
-**建议使用Cocoapods集成SDK**
+###其他
+建议使用Cocoapods集成SDK
 ![](images/ios10-1.png)
 
