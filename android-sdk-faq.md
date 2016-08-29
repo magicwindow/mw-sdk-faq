@@ -6,6 +6,7 @@ FAQ分类
 * [魔窗位](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#魔窗位)
 * [分享](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#分享)
 * [短链接](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#短链接)
+* [mLink](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#mLink)
 * [应用宝](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#应用宝)
 
 魔窗位
@@ -29,7 +30,6 @@ A:现阶段魔窗支持微信分享。<br>
 [参考文档](https://open.weixin.qq.com)<br>
 注意：包名以及应用签名不要写错。<br>
 2）将微信AppID填写在魔窗后台->帐号设置->应用管理->设置分享平台<br>
-
 
 ###Q4.Jar包重复（暂未集成新浪微博分享，忽略此步）
 A:如果显示微信分享等jar包重复。（特别如果集成了shareSDK，会报微博的jar包重复）<br>
@@ -64,62 +64,12 @@ A:有如下可能原因。 <br>
 A:“程序安装后第一次打开，魔窗mLink会跟后台通信实现场景还原。App清除数据后，mLink会判断程序为第一次安装。此时请求后台并匹配成功。所以会进入具体页面”。<br>
 用户实际使用时基本不会发生此类情况。属于极小概率事件。<br>
 
-
-应用宝
+mLink
 ===
-###Q9.集成了应用宝跳转，但是从微信打开时依旧会显示中间页,没有直接打开App。
-A：说明后台没有打开应用宝开关。需要在魔窗后台将下载链接改为应用宝的地址，并且在mLink服务的高级设置内打开应用宝跳转开关。
-
-###Q10.程序在后台时，从微信内通过应用宝跳转无法跳转到具体页。
-A:
-情况①，在公共Activity的onStart()方法中调用如下代码。
-```
-public class BaseActivity extends AppCompatActivity {
-  @Override
-  protected void onStart() {
-    super.onStart();
-    Uri mLink = getIntent().getData();
-    if (mLink != null) {
-        MagicWindowSDK.getMLink().router(mLink);
-    } else {
-        MLink.getInstance(this).checkYYB();
-    }
-  }
-}
-```
-情况②，启动页的启动方式为singleTop模式时，需要在其Activity内覆写onNewIntent()
-```
-    @Override
-    public void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        this.setIntent(intent);
-        
-        Uri mLink = intent.getData();
-        if (mLink != null) {
-            MagicWindowSDK.getMLink().router(mLink);
-        } else {
-            MLink.getInstance(this).checkYYB();
-        }
-   }
-```
-###Q11.如何开启应用宝跳转
-A:<br>
-1、魔窗后台，先进入“App管理”页面修改Android的App默认下载链接为应用宝下载链接。<br>
-2、魔窗后台，进入高级设置中打开应用宝跳转开关。<br>
-3、代码集成，要在代码的相应位置需要调用checkYYB（在耗时的启动之后，跟启动首页的startActivity并列放置）<br>
-
-###Q12.开启了应用宝跳转，为何getIntent().getData()为空
-A:应用宝打开App是通过包名来直接打开App的，而不是scheme，所以getData()为空。<br>
-也正因如此，所以我们需要在getData()为空时调用checkYYB()接口，来通过后台拿到具体页面的Scheme。从而跳转到具体页面<br>
-
-
-
-
-
-###Q5.App未安装时，通过短链跳转到下载页面，安装后，第一次打开未能实现场景还原。
+###Q9.App未安装时，通过短链跳转到下载页面，安装后，第一次打开未能实现场景还原。
 A:router必须要写在启动页。否则安装后，第一次打开无法场景还原，且走了router后就不要再走跳转到首页的逻辑。<br>
 
-###Q6.通过mLink跳转直达的页面，如何做到“先显示启动动画，然后再做相应跳转”
+###Q10.通过mLink跳转直达的页面，如何做到“先显示启动动画，然后再做相应跳转”
 A:可以在动画结束时再调用router,如下：<br>
 ```Java
 Uri mLink = getIntent().getData();
@@ -127,7 +77,7 @@ Uri mLink = getIntent().getData();
                 MLink.getInstance(this).router(mLink);
             }            
 ```
-###Q7.通过mLink跳转直达的页面，如何做到“返回时进入首页，而不是退出程序”
+###Q11.通过mLink跳转直达的页面，如何做到“返回时进入首页，而不是退出程序”
 A:有两种方法：<br>
 方法①<br>
 启动页面调用router的地方稍作调整，将跳转到首页的代码放在getIntent().getData()!=null的判断外面：<br>
@@ -171,24 +121,12 @@ MLink.getInstance(this).register("mLink的Key", new MLinkCallback() {
 ```
 第二步：在DetailActivity内的返回函数内，根据intent.getBooleanExtra("mlink",false)是否为true来跳转到首页。
 
-
-
-
-
-###Q11.应用打开具体页面后，又重新打开了首页。
-A:此问题分两种情况<br>
-①未开启应用宝时， 说明router调用时，有一个handler之类的延迟操作重新打开了首页。走router时需要将handler排除掉。<br>
-②开启应用宝时，说明checkYYB接口调用前后有比较耗时的初始化操作，将checkYYB移到耗时操作之后，跟进入首页的startActivity并列放置即可。
-
-
-
-###Q13.可以跳转到具体页面，但是不知道如何拿到参数。
+###Q12.可以跳转到具体页面，但是不知道如何拿到参数。
 A：如果利用自定义注解，则所有的参数，都放在MLinkCallback回调的Map<String, String> paramMap内。<br>
 如果利用注解，则可用getIntent().getStringExtra("key")获取。
 
 
-
-###Q16.提示MLink内的defaultMLinkCallback持有activity导致内存泄露。
+###Q13.提示MLink内的defaultMLinkCallback持有activity导致内存泄露。
 A:register内的回调需要用application的Context，且方法需要用static。具体如下
 
 ```
@@ -226,7 +164,7 @@ public static void registerForMLinkCallback() {
 ```
 
 
-###Q19.mLink集成跳转到相应activity时黑屏
+###Q14.mLink集成跳转到相应activity时黑屏
 A:第一步：xxx/res/values/styles.xml中加入自定义Activity的Theme，如下所示：<br>
 ```Java
 <style name="Transparent" parent="android:Theme.Light">  
@@ -241,6 +179,60 @@ A:第一步：xxx/res/values/styles.xml中加入自定义Activity的Theme，如�
     android:label="@string/app_name"  
     android:theme="@style/Transparent"/>
 ```
+
+
+应用宝
+===
+###Q15.集成了应用宝跳转，但是从微信打开时依旧会显示中间页,没有直接打开App。
+A：说明后台没有打开应用宝开关。需要在魔窗后台将下载链接改为应用宝的地址，并且在mLink服务的高级设置内打开应用宝跳转开关。
+
+###Q16.程序在后台时，从微信内通过应用宝跳转无法跳转到具体页。
+A:
+情况①，在公共Activity的onStart()方法中调用如下代码。
+```
+public class BaseActivity extends AppCompatActivity {
+  @Override
+  protected void onStart() {
+    super.onStart();
+    Uri mLink = getIntent().getData();
+    if (mLink != null) {
+        MagicWindowSDK.getMLink().router(mLink);
+    } else {
+        MLink.getInstance(this).checkYYB();
+    }
+  }
+}
+```
+情况②，启动页的启动方式为singleTop模式时，需要在其Activity内覆写onNewIntent()
+```
+    @Override
+    public void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        this.setIntent(intent);
+        
+        Uri mLink = intent.getData();
+        if (mLink != null) {
+            MagicWindowSDK.getMLink().router(mLink);
+        } else {
+            MLink.getInstance(this).checkYYB();
+        }
+   }
+```
+###Q17.如何开启应用宝跳转
+A:<br>
+1、魔窗后台，先进入“App管理”页面修改Android的App默认下载链接为应用宝下载链接。<br>
+2、魔窗后台，进入高级设置中打开应用宝跳转开关。<br>
+3、代码集成，要在代码的相应位置需要调用checkYYB（在耗时的启动之后，跟启动首页的startActivity并列放置）<br>
+
+###Q18.开启了应用宝跳转，为何getIntent().getData()为空
+A:应用宝打开App是通过包名来直接打开App的，而不是scheme，所以getData()为空。<br>
+也正因如此，所以我们需要在getData()为空时调用checkYYB()接口，来通过后台拿到具体页面的Scheme。从而跳转到具体页面<br>
+
+###Q19.应用打开具体页面后，又重新打开了首页。
+A:此问题分两种情况<br>
+①未开启应用宝时， 说明router调用时，有一个handler之类的延迟操作重新打开了首页。走router时需要将handler排除掉。<br>
+②开启应用宝时，说明checkYYB接口调用前后有比较耗时的初始化操作，将checkYYB移到耗时操作之后，跟进入首页的startActivity并列放置即可。
+
 
 ##注意点
 经过以上分析，我们总结一下常见错误以及注意点：<br>
