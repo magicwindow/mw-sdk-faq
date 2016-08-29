@@ -6,7 +6,7 @@ FAQ分类
 * [魔窗位](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#魔窗位)
 * [分享](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#分享)
 * [短链接](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#短链接)
-* [mLink](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#mLink)
+* [mLink](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#MLink)
 * [应用宝](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#应用宝)
 * [其他](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#其他)
 
@@ -65,7 +65,7 @@ A:有如下可能原因。 <br>
 A:“程序安装后第一次打开，魔窗mLink会跟后台通信实现场景还原。App清除数据后，mLink会判断程序为第一次安装。此时请求后台并匹配成功。所以会进入具体页面”。<br>
 用户实际使用时基本不会发生此类情况。属于极小概率事件。<br>
 
-mLink
+MLink
 ===
 ###Q9.App未安装时，通过短链跳转到下载页面，安装后，第一次打开未能实现场景还原。
 A:router必须要写在启动页。否则安装后，第一次打开无法场景还原，且走了router后就不要再走跳转到首页的逻辑。<br>
