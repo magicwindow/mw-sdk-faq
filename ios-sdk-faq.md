@@ -2,7 +2,7 @@
 
 FAQ分类
 ---
-* [Universal link](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#universal link)
+* [Universal link](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#universal-link)
 
 
 Universal link
