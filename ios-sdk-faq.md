@@ -1,5 +1,13 @@
-#FAQ
-####Q1.mLink和App都配置了Universal link，但是无法从微信跳转到App？
+#魔窗iOS SDK FAQ
+
+FAQ分类
+---
+* [Universal link](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#universal link)
+
+
+Universal link
+===
+###Q1.mLink和App都配置了Universal link，但是无法从微信跳转到App？
 
 (1)确认设备系统是iOS9以上,Universal link仅支持iOS9以上
 
@@ -21,7 +29,7 @@
 
 使用xcodebuild自动打包会影响Universal link的使用，请使用手动打包
 
-####Q2.在编辑Associated Domains 的时候，报错，错误信息“An App ID with Identifier ‘com.XXX’ is not available”，怎么解决？
+###Q2.在编辑Associated Domains 的时候，报错，错误信息“An App ID with Identifier ‘com.XXX’ is not available”，怎么解决？
 ![](http://7xk40m.com2.z0.glb.qiniucdn.com/img-20160601-02.png)
 进入苹果开发者帐号，将当前App ID 的Associated Domains 设置成Enable，如下图：
 ![](images/ios2-1.png)
