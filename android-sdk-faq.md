@@ -3,8 +3,8 @@
 FAQ分类
 ---
 
-* [魔窗位]（https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#魔窗位）
-* [分享]（https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#分享）
+* [魔窗位](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#魔窗位)
+* [分享](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#分享)
 
 
 魔窗位
