@@ -62,7 +62,7 @@ Universal link
 
 可能是微信缓存造成的，退出微信登录，重新登录微信点击短链接
 
-app发布
+app配置
 ===
 ###Q7.在Debug下测试正常，但是在Release下不能正常一键唤起
 (1)后台配置的Team ID是否和App的编译证书相匹配
@@ -90,7 +90,10 @@ SDK中使用了IDFA，App在往AppStore提审的时候，需要勾选以下选�
 
 这一项下的内容其实就是对你的app使用idfa的目的做下确认，只要你选择了采集idfa，那么这一项都是需要勾选的。
 
-####Q3.什么是URL Scheme，怎么配置
+
+其他
+===
+###Q9.什么是URL Scheme，怎么配置
 OS系统中 App之前是相互隔离的，通过URL Scheme，App之间可以相互调用，并且可以传递参数。
 
 在Xcode中，选中Target－Info－URL Types。比如填写magicWindow 在手机浏览器中输入 URL Scheme:// （比如 magicWindow://），如果可以唤起App，说明该URL Scheme 配置成功。
@@ -98,15 +101,14 @@ OS系统中 App之前是相互隔离的，通过URL Scheme，App之间可以相�
 可以参考：<http://www.magicwindow.cn/doc/#uri-scheme>
 
 
-####Q5.微信分享，登录或者支付不能正常使用
+###Q10.微信分享，登录或者支付不能正常使用
 请在App管理中填写正确的微信AppID（前往微信开放平台申请微信AppID，<https://open.weixin.qq.com>）
 ![](images/ios5-1.png)
 
 
-####Q10.手动在工程中添加SDK，初始化SDK的时候出现crash
+###Q11.手动在工程中添加SDK，初始化SDK的时候出现crash
 在AppDelegate中调用registerApp方法，初始化SDK的时候，出现crash信息，请确认是否将整个的SDK包都放到了整个工程中，并且确认MagicWindow.bundle是否成功加入到了相应的target中
 
-###其他
-建议使用Cocoapods集成SDK
+###Q12.建议使用Cocoapods集成SDK
 ![](images/ios10-1.png)
 
