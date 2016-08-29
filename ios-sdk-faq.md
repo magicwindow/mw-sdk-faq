@@ -3,10 +3,21 @@
 FAQ分类
 ---
 * [Universal link](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#universal-link)
+  * Q1.mLink和App都配置了Universal link，但是无法从微信跳转到App？
+  * Q2.在编辑Associated Domains 的时候，报错，错误信息“An App ID with Identifier ‘com.XXX’ is not available”，怎么解决？
 * [短链接](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#短链接)
+  * Q3.通过短链进入具体页面后，清除数据再次打开App，依旧进入短链对应的具体页面。
+  * Q4.短链内的参数值能动态修改么？
+  * Q5.一键唤起成功，场景还原失败
+  * Q6.在微信中点击短链接唤起App，在App中收到的动态参数的值不正确
+  * Q7.在Debug下测试正常，但是在Release下不能正常一键唤起
 * [app发布](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#app发布)
+  * Q8.App Store提审时，对Advertising Identifier（IDFA）的配置
 * [其他](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#其他)
-
+  * Q9.什么是URL Scheme，怎么配置
+  * Q10.微信分享，登录或者支付不能正常使用
+  * Q11.手动在工程中添加SDK，初始化SDK的时候出现crash
+  * Q12.建议使用Cocoapods集成SDK
 
 
 Universal link
@@ -62,14 +73,13 @@ Universal link
 
 可能是微信缓存造成的，退出微信登录，重新登录微信点击短链接
 
-app配置
-===
 ###Q7.在Debug下测试正常，但是在Release下不能正常一键唤起
 (1)后台配置的Team ID是否和App的编译证书相匹配
 
 (2)update 相应的provisioning Profiles
 
-
+app发布
+===
 ###Q8.App Store提审时，对Advertising Identifier（IDFA）的配置
 
 SDK中使用了IDFA，App在往AppStore提审的时候，需要勾选以下选项
