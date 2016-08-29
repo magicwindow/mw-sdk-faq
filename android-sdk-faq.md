@@ -4,10 +4,29 @@ FAQ分类
 ---
 
 * [魔窗位](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#魔窗位)
+   * Q1.魔窗位活动不能展示
 * [分享](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#分享)
+   * Q2.分享弹框缺少图标
+   * Q3.不能分享
+   * Q4.Jar包重复（暂未集成新浪微博分享，忽略此步）
 * [短链接](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#短链接)
+   * Q5.短链内的参数值能动态修改么？
+   * Q6.App安装的前提下，短链依旧前往下载App页面。
+   * Q7.App安装的前提下，短链只能打开首页，未能进入具体页面。
+   * Q8.通过短链进入具体页面后，清除数据再次打开App，依旧进入短链对应的具体页面。
 * [mLink](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#mlink)
+   * Q9.App未安装时，通过短链跳转到下载页面，安装后，第一次打开未能实现场景还原。
+   * Q10.通过mLink跳转直达的页面，如何做到“先显示启动动画，然后再做相应跳转”
+   * Q11.通过mLink跳转直达的页面，如何做到“返回时进入首页，而不是退出程序”
+   * Q12.可以跳转到具体页面，但是不知道如何拿到参数。
+   * Q13.提示MLink内的defaultMLinkCallback持有activity导致内存泄露。
+   * Q14.mLink集成跳转到相应activity时黑屏
 * [应用宝](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#应用宝)
+   * Q15.集成了应用宝跳转，但是从微信打开时依旧会显示中间页,没有直接打开App。
+   * Q16.程序在后台时，从微信内通过应用宝跳转无法跳转到具体页。
+   * Q17.如何开启应用宝跳转
+   * Q18.开启了应用宝跳转，为何getIntent().getData()为空
+   * Q19.应用打开具体页面后，又重新打开了首页。
 * [其他](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#其他)
 
 魔窗位
