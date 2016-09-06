@@ -18,7 +18,7 @@ FAQ分类
    * Q9.App未安装时，通过短链跳转到下载页面，安装后，第一次打开未能实现场景还原。
    * Q10.通过mLink跳转直达的页面，如何做到“先显示启动动画，然后再做相应跳转”
    * Q11.通过mLink跳转直达的页面，如何做到“返回时进入首页，而不是退出程序”
-   * Q12.可以跳转到具体页面，但是不知道如何拿到参数。
+   * Q12.跳转到具体页面后，如何获取动态参数。
    * Q13.提示MLink内的defaultMLinkCallback持有activity导致内存泄露。
    * Q14.mLink集成跳转到相应activity时黑屏
 * [应用宝](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#应用宝)
@@ -141,8 +141,13 @@ MLink.getInstance(this).register("mLink的Key", new MLinkCallback() {
 ```
 第二步：在DetailActivity内的返回函数内，根据intent.getBooleanExtra("mlink",false)是否为true来跳转到首页。
 
-###Q12.可以跳转到具体页面，但是不知道如何拿到参数。
-A：如果利用自定义注解，则所有的参数，都放在MLinkCallback回调的Map<String, String> paramMap内。<br>
+###Q12.跳转到具体页面后，如何获取动态参数。
+A：例如，我们想获取mw_id这样的动态参数：<br>
+①在mLink服务那，如下配置mwdemo://host?mw_id=:mw_id<br>
+②配置短链时，可以配置mw_id的默认值，也可以在query直接赋值<br>
+例如：http://a.t.mlinks.cc/Aaaa?mw_id=12345<br>
+③代码内可以如下获取。<br>
+如果利用自定义注解，则所有的参数，都放在MLinkCallback回调的Map paramMap内。<br>
 如果利用注解，则可用getIntent().getStringExtra("key")获取。
 
 
