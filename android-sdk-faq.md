@@ -147,9 +147,8 @@ A：例如，我们想获取mw_id这样的动态参数：<br>
 ②配置短链时，可以配置mw_id的默认值，也可以在query直接赋值<br>
 例如：http://a.t.mlinks.cc/Aaaa?mw_id=12345<br>
 ③代码内可以如下获取。<br>
-如果利用自定义注解，则所有的参数，都放在MLinkCallback回调的Map paramMap内。<br>
+如果利用register，则所有的参数，都放在MLinkCallback回调的Map paramMap内。<br>
 如果利用注解，则可用getIntent().getStringExtra("key")获取。
-
 
 ###Q13.提示MLink内的defaultMLinkCallback持有activity导致内存泄露。
 A:register内的回调需要用application的Context，且方法需要用static。具体如下
