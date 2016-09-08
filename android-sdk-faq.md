@@ -244,10 +244,10 @@ public class BaseActivity extends AppCompatActivity {
 ```
 ###Q17.如何开启应用宝跳转
 A:<br>
-1、在魔窗后台，进入“mLink”菜单下“高级设置”，填写应用宝微下载地址。如何配置微下载地址：
-登录腾讯开放平台，选择一款Android应用，选择“运营服务”中的“微下载”获取微下载地址，格式为“http://a.app.qq.com/o/simple.jsp?pkgname=包名”，如http://a.app.qq.com/o/simple.jsp?pkgname=me.bolo.android.client为波罗蜜的微下载地址。
-2、配置完上述内容后，在“高级设置”中开启“Android开启应用宝跳转”的开关。
-3、代码集成，要在代码的相应位置需要调用checkYYB（在耗时的启动之后，跟启动首页的startActivity并列放置）
+1. 在魔窗后台，进入“mLink”菜单下“高级设置”，填写应用宝微下载地址。如何配置微下载地址：
+登录腾讯开放平台，选择一款Android应用，选择“运营服务”中的“微下载”获取微下载地址，格式为“http://a.app.qq.com/o/simple.jsp?pkgname=包名”，如http://a.app.qq.com/o/simple.jsp?pkgname=me.bolo.android.client为波罗蜜的微下载地址。<br>
+2. 配置完上述内容后，在“高级设置”中开启“Android开启应用宝跳转”的开关。<br>
+3. 代码集成，要在代码的相应位置需要调用checkYYB（在耗时的启动之后，跟启动首页的startActivity并列放置）
 http://www.magicwindow.cn/doc/sdk-android.html#begin-start/mLink中章节5.2.5
 
 ###Q18.开启了应用宝跳转，为何getIntent().getData()为空
