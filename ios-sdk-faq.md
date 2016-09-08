@@ -93,7 +93,7 @@ Universal link
 ###Q9.iOS7、8为什么要开启应用宝跳转？
 在iOS7、8的系统中，开启应用宝跳转后可以借助应用宝跳转到AppStore，在AppSore中直接打开应用。开启方法如下：<br>
 1. 登录腾讯开放平台，选择该iOS应用对应的Android版本，选择“运营服务”中的“微下载”，在微下载地址处配置对应的AppStore下载地址。<br>
-2. 将该微下载地址填写到魔窗后台“mLink”菜单下的“高级设置”中，微下载地址的格式为“http://a.app.qq.com/o/simple.jsp?pkgname=包名”， 如http://a.app.qq.com/o/simple.jsp?pkgname=me.bolo.android.client为波罗蜜的微下载地址。<br>
+2. 将该微下载地址填写到魔窗后台“mLink”菜单下的“高级设置”中，微下载地址的格式为“http://a.app.qq.com/o/simple.jsp?pkgname=包名”， 如http://a.app.qq.com/o/simple.jsp?pkgname=me.bolo.android.client 为波罗蜜的微下载地址。<br>
 3. 配置完成后，在“高级设置”中开启“iOS7/8开启应用宝跳转”的开关。
 app发布
 ===
