@@ -248,7 +248,7 @@ A:<br>
 登录腾讯开放平台，选择一款Android应用，选择“运营服务”中的“微下载”获取微下载地址，格式为“http://a.app.qq.com/o/simple.jsp?pkgname=包名”， 如http://a.app.qq.com/o/simple.jsp?pkgname=me.bolo.android.client 为波罗蜜的微下载地址。<br>
 2. 配置完上述内容后，在“高级设置”中开启“Android开启应用宝跳转”的开关。<br>
 3. 代码集成，要在代码的相应位置需要调用checkYYB（在耗时的启动之后，跟启动首页的startActivity并列放置）
-http://www.magicwindow.cn/doc/sdk-android.html#begin-start/mLink中章节5.2.5
+http://www.magicwindow.cn/doc/sdk-android.html#begin-start/mLink 中章节5.2.5
 
 ###Q18.开启了应用宝跳转，为何getIntent().getData()为空
 A:应用宝打开App是通过包名来直接打开App的，而不是scheme，所以getData()为空。<br>
