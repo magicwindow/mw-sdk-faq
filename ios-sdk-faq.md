@@ -12,13 +12,15 @@ FAQ分类
   * Q6.在微信中点击短链接唤起App，在App中收到的动态参数的值不正确
   * Q7.在Debug下测试正常，但是在Release下不能正常一键唤起
   * Q8.手机上在1个小时之内没有点击过短链接，第一次安装出现场景还原
+* [应用宝](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#应用宝)
+  * Q9.iOS7、8为什么要开启应用宝跳转？
 * [app发布](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#app发布)
-  * Q9.App Store提审时，对Advertising Identifier（IDFA）的配置
+  * Q10.App Store提审时，对Advertising Identifier（IDFA）的配置
 * [其他](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#其他)
-  * Q10.什么是URL Scheme，怎么配置
-  * Q11.微信分享，登录或者支付不能正常使用
-  * Q12.手动在工程中添加SDK，初始化SDK的时候出现crash
-  * Q13.老版本App没有集成SDK，但是H5中使用了短链接，该怎么处理？
+  * Q11.什么是URL Scheme，怎么配置
+  * Q12.微信分享，登录或者支付不能正常使用
+  * Q13.手动在工程中添加SDK，初始化SDK的时候出现crash
+  * Q14.老版本App没有集成SDK，但是H5中使用了短链接，该怎么处理？
 
 
 Universal link
@@ -85,9 +87,17 @@ Universal link
 在微信中点击短链接或者其它情况下，我们会根据设备的相关参数来进行模糊匹配，比如IP地址，设备型号，分辨率等等，所以若两个用户在同一wifi环境，完全相同一手机型号时，A用户进行了场景还原，B用户只是去安装，B用户在一小时内可能出现场景还原。
 
 因为在测试阶段，大家都是在同一个wifi下，设备型号和分辨率也相同，所以会出现没有点击短链接也场景还原的情况，但是在实际应用过程中，几乎不会出现两个不相识的用户，有一个用户安装被突然的场景还原。
+
+应用宝
+===
+###iOS7、8为什么要开启应用宝跳转？
+在iOS7、8的系统中，开启应用宝跳转后可以借助应用宝跳转到AppStore，在AppSore中直接打开应用。开启方法如下：<br>
+1. 登录腾讯开放平台，选择该iOS应用对应的Android版本，选择“运营服务”中的“微下载”，在微下载地址处配置对应的AppStore下载地址。<br>
+2. 将该微下载地址填写到魔窗后台“mLink”菜单下的“高级设置”中，微下载地址的格式为“http://a.app.qq.com/o/simple.jsp?pkgname=包名”， 如http://a.app.qq.com/o/simple.jsp?pkgname=me.bolo.android.client为波罗蜜的微下载地址。<br>
+3. 配置完成后，在“高级设置”中开启“iOS7/8开启应用宝跳转”的开关。
 app发布
 ===
-###Q9.App Store提审时，对Advertising Identifier（IDFA）的配置
+###Q10.App Store提审时，对Advertising Identifier（IDFA）的配置
 
 SDK中使用了IDFA，App在往AppStore提审的时候，需要勾选以下选项
 ![](images/ios9-1.png)
@@ -110,7 +120,7 @@ SDK中使用了IDFA，App在往AppStore提审的时候，需要勾选以下选�
 
 其他
 ===
-###Q10.什么是URL Scheme，怎么配置
+###Q11.什么是URL Scheme，怎么配置
 OS系统中 App之前是相互隔离的，通过URL Scheme，App之间可以相互调用，并且可以传递参数。
 
 在Xcode中，选中Target－Info－URL Types。比如填写magicWindow 在手机浏览器中输入 URL Scheme:// （比如 magicWindow://），如果可以唤起App，说明该URL Scheme 配置成功。
@@ -118,17 +128,17 @@ OS系统中 App之前是相互隔离的，通过URL Scheme，App之间可以相�
 可以参考：<http://www.magicwindow.cn/doc/#uri-scheme>
 
 
-###Q11.微信分享，登录或者支付不能正常使用
+###Q12.微信分享，登录或者支付不能正常使用
 请在App管理中填写正确的微信AppID（前往微信开放平台申请微信AppID，<https://open.weixin.qq.com>）
 ![](images/ios5-1.png)
 
 
-###Q12.手动在工程中添加SDK，初始化SDK的时候出现crash
+###Q13.手动在工程中添加SDK，初始化SDK的时候出现crash
 在AppDelegate中调用registerApp方法，初始化SDK的时候，出现crash信息，请确认是否将整个的SDK包都放到了整个工程中，并且确认MagicWindow.bundle是否成功加入到了相应的target中
 
 **建议使用Cocoapods集成SDK，pod 'MagicWindowSDK'**
 ![](images/ios10-1.png)
 
-###Q13.老版本App没有集成SDK，但是H5中使用了短链接，该怎么处理？
+###Q14.老版本App没有集成SDK，但是H5中使用了短链接，该怎么处理？
 (1) 如果客户没有集成SDK，但是已经实现了schema，并且和在我们后台配置的一致，则除了场景还原不能实现以及监测不到数据，功能上和集成了SDK没有任何影响<br>
 (2) 如果客户没有集成SDK，而且schema也没实现，那么这个时候点击短链接永远是未下载的情况
