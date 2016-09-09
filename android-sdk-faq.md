@@ -23,7 +23,7 @@ FAQ分类
    * Q14.mLink集成跳转到相应activity时黑屏
 * [应用宝](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#应用宝)
    * Q15.集成了应用宝跳转，但是从微信打开时依旧会显示中间页,没有直接打开App。
-   * Q16.集成了应用宝，但是手机上没有安装应用宝怎么办？
+   * Q16.集成了应用宝跳转，但是手机上没有安装应用宝怎么办？
    * Q17.程序在后台时，从微信内通过应用宝跳转无法跳转到具体页。
    * Q18.如何开启应用宝跳转
    * Q19.开启了应用宝跳转，为何getIntent().getData()为空
@@ -211,11 +211,10 @@ A:第一步：xxx/res/values/styles.xml中加入自定义Activity的Theme，如�
 ###Q15.集成了应用宝跳转，但是从微信打开时依旧会显示中间页,没有直接打开App。
 A：说明后台没有打开应用宝开关。需要在魔窗后台将下载链接改为应用宝的地址，并且在mLink服务的高级设置内打开应用宝跳转开关。
 
-###Q16.集成了应用宝，但是手机上没有安装应用宝怎么办？
+###Q16.集成了应用宝跳转，但是手机上没有安装应用宝怎么办？
 A:可以在应用宝的H5页面，点击普通打开，并选择继续，就能打开app了。
 <video id="video" controls="" preload="none" poster="http://media.w3.org/2010/05/sintel/poster.png">
       <source id="mp4" src="https://github.com/magicwindow/mw-sdk-faq/blob/master/video/android_1.mp4" type="video/mp4">
-      <p>Your user agent does not support the HTML5 Video element.</p>
 </video>
 
 ###Q17.程序在后台时，从微信内通过应用宝跳转无法跳转到具体页。
