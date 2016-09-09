@@ -214,8 +214,7 @@ A：说明后台没有打开应用宝开关。需要在魔窗后台将下载链�
 ###Q16.集成了应用宝，但是手机上没有安装应用宝怎么办？
 A:可以在应用宝的H5页面，点击普通打开，并选择继续，就能打开app了。
 <video id="video" controls="" preload="none" >
-      <source id="mp4" src="/video/android_1.mp4" type="video/mp4">
-      <p>Your user agent does not support the HTML5 Video element.</p>
+      <source id="mp4" src="https://github.com/magicwindow/mw-sdk-faq/blob/master/video/android_1.mp4" type="video/mp4">
 </video>
 
 ###Q17.程序在后台时，从微信内通过应用宝跳转无法跳转到具体页。
