@@ -217,7 +217,8 @@ A: 可以在应用宝的H5页面里，点击普通打开，并选择继续，就
 <img src="images/android-1.gif" width="300" height="450" />
 
 ###Q17.程序在后台时，从微信内通过应用宝跳转无法跳转到具体页。
-A:
+A:首先切换一下网络，排除因网络不稳定导致的失败（应用宝跳转需要根据checkYYB()接口去跟后台通信。通过模糊匹配来进行具体页面跳转）。除此之外，可按照以下情况调整：
+
 情况①，在公共Activity的onStart()方法中调用如下代码。
 ```
 public class BaseActivity extends AppCompatActivity {
