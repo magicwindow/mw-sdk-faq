@@ -20,14 +20,15 @@ FAQ分类
    * Q11.通过mLink跳转直达的页面，如何做到“返回时进入首页，而不是退出程序”
    * Q12.跳转到具体页面后，如何获取动态参数。
    * Q13.提示MLink内的defaultMLinkCallback持有activity导致内存泄露。
-   * Q14.mLink集成跳转到相应activity时黑屏
+   * Q14.mLink集成跳转到相应activity时黑屏。
+   * Q15.App卸载后再安装，再次进入具体页面，或者没点击过短链的手机也出现了场景还原。
 * [应用宝](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#应用宝)
-   * Q15.集成了应用宝跳转，但是从微信打开时依旧会显示中间页,没有直接打开App。
-   * Q16.集成了应用宝跳转，但是手机上没有安装应用宝怎么办？
-   * Q17.程序在后台时，从微信内通过应用宝跳转无法跳转到具体页。
-   * Q18.如何开启应用宝跳转
-   * Q19.开启了应用宝跳转，为何getIntent().getData()为空
-   * Q20.应用打开具体页面后，又重新打开了首页。
+   * Q16.集成了应用宝跳转，但是从微信打开时依旧会显示中间页,没有直接打开App。
+   * Q17.集成了应用宝跳转，但是手机上没有安装应用宝怎么办？
+   * Q18.程序在后台时，从微信内通过应用宝跳转无法跳转到具体页。
+   * Q19.如何开启应用宝跳转
+   * Q20.开启了应用宝跳转，为何getIntent().getData()为空
+   * Q21.应用打开具体页面后，又重新打开了首页。
 * [其他](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#其他)
 
 魔窗位
@@ -207,20 +208,23 @@ A:第一步：xxx/res/values/styles.xml中加入自定义Activity的Theme，如�
     android:theme="@style/Transparent"/>
 ```
 
+###Q15.App卸载后再安装，再次进入具体页面，或者没点击过短链的手机也出现了场景还原。
+A:场景还原是通过魔窗后台的模糊匹配进行的。而模糊匹配的结果时效是一个小时。也就是说在一个小时内，你重新安装App都会场景还原。
+模糊匹配用到的UA主要有分辨率、IP地址等，只要在同一个局域网内点击过短链，会有概率出现没点过短链的手机，第一次安装也会实现场景还原。
+用户实际使用的场景内，不会有影响。
 
 应用宝
 ===
-###Q15.集成了应用宝跳转，但是从微信打开时依旧会显示中间页,没有直接打开App。
+###Q16.集成了应用宝跳转，但是从微信打开时依旧会显示中间页,没有直接打开App。
 A：说明后台没有打开应用宝开关。需要在魔窗后台将下载链接改为应用宝的地址，并且在mLink服务的高级设置内打开应用宝跳转开关。
 
-###Q16.集成了应用宝跳转，但是手机上没有安装应用宝怎么办？
+###Q17.集成了应用宝跳转，但是手机上没有安装应用宝怎么办？
 A: 可以在应用宝的H5页面里，点击普通打开，并选择继续，就能打开app了。具体可以看下面的动画。
 
 <img src="images/android-1.gif" width="300" height="450" />
 
-###Q17.程序在后台时，从微信内通过应用宝跳转无法跳转到具体页。
+###Q18.程序在后台时，从微信内通过应用宝跳转无法跳转到具体页。
 A:首先切换一下网络，排除因网络不稳定导致的失败（应用宝跳转需要根据checkYYB()接口去跟后台通信。通过模糊匹配来进行具体页面跳转）。除此之外，可按照以下情况调整：
-
 情况①，在公共Activity的onStart()方法中调用如下代码。
 ```
 public class BaseActivity extends AppCompatActivity {
@@ -251,7 +255,8 @@ public class BaseActivity extends AppCompatActivity {
         }
    }
 ```
-###Q18.如何开启应用宝跳转。
+
+###Q19.如何开启应用宝跳转。
 A:<br>
 1. 在魔窗后台，进入“mLink”菜单下“高级设置”，填写应用宝微下载地址。如何配置微下载地址：
 登录腾讯开放平台，选择一款Android应用，选择“运营服务”中的“微下载”获取微下载地址，格式为“http://a.app.qq.com/o/simple.jsp?pkgname=包名”， 如http://a.app.qq.com/o/simple.jsp?pkgname=me.bolo.android.client 为波罗蜜的微下载地址。<br>
@@ -259,11 +264,12 @@ A:<br>
 3. 代码集成，要在代码的相应位置需要调用checkYYB（在耗时的启动之后，跟启动首页的startActivity并列放置）
 http://www.magicwindow.cn/doc/sdk-android.html#begin-start/mLink 中章节5.2.5
 4.应用宝上的包名与版本号要与App的保持一致。否则应用宝无法打开App。
-###Q19.开启了应用宝跳转，为何getIntent().getData()为空
+
+###Q20.开启了应用宝跳转，为何getIntent().getData()为空
 A:应用宝打开App是通过包名来直接打开App的，而不是scheme，所以getData()为空。<br>
 也正因如此，所以我们需要在getData()为空时调用checkYYB()接口，来通过后台拿到具体页面的Scheme。从而跳转到具体页面<br>
 
-###Q20.应用打开具体页面后，又重新打开了首页。
+###Q21.应用打开具体页面后，又重新打开了首页。
 A:此问题分两种情况<br>
 ①未开启应用宝时， 说明router调用时，有一个handler之类的延迟操作重新打开了首页。走router时需要将handler排除掉。<br>
 ②开启应用宝时，说明checkYYB接口调用前后有比较耗时的初始化操作，将checkYYB移到耗时操作之后，跟进入首页的startActivity并列放置即可。
