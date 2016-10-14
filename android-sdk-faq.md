@@ -3,38 +3,39 @@
 FAQ分类
 ---
 
-* [魔窗位](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#魔窗位)
-   * Q1.魔窗位活动不能展示
-* [分享](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#分享)
-   * Q2.分享弹框缺少图标
-   * Q3.不能分享
-   * Q4.Jar包重复（暂未集成新浪微博分享，忽略此步）
-* [短链接](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#短链接)
-   * Q5.短链内的参数值能动态修改么？
-   * Q6.App安装的前提下，短链依旧前往下载App页面。
-   * Q7.App安装的前提下，短链只能打开首页，未能进入具体页面。
-   * Q8.通过短链进入具体页面后，清除数据再次打开App，依旧进入短链对应的具体页面。
-* [mLink](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#mlink)
-   * Q9.App未安装时，通过短链跳转到下载页面，安装后，第一次打开未能实现场景还原。
-   * Q10.通过mLink跳转直达的页面，如何做到“先显示启动动画，然后再做相应跳转”
-   * Q11.通过mLink跳转直达的页面，如何做到“返回时进入首页，而不是退出程序”
-   * Q12.跳转到具体页面后，如何获取动态参数。
-   * Q13.提示MLink内的defaultMLinkCallback持有activity导致内存泄露。
-   * Q14.mLink集成跳转到相应activity时黑屏。
-   * Q15.App卸载后再安装，再次进入具体页面，或者没点击过短链的手机也出现了场景还原。
-* [应用宝](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#应用宝)
-   * Q16.集成了应用宝跳转，但是从微信打开时没有直接跳转，或者依旧会显示中间页,没有直接打开App。
-   * Q17.集成了应用宝跳转，但是手机上没有安装应用宝怎么办？
-   * Q18.程序在后台时，从微信内通过应用宝跳转无法跳转到具体页。
-   * Q19.如何开启应用宝跳转
-   * Q20.开启了应用宝跳转，为何getIntent().getData()为空
-   * Q21.应用打开具体页面后，又重新打开了首页。
-* [其他](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#其他)
+* QA[魔窗位](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#魔窗位)
+   * Qa1.魔窗位活动不能展示
+* QB[分享](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#分享)
+   * Qb1.分享弹框缺少图标
+   * Qb2.不能分享
+   * Qb3.Jar包重复（暂未集成新浪微博分享，忽略此步）
+* QC[短链接](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#短链接)
+   * Qc1.短链内的参数值能动态修改么？
+   * Qc2.App安装的前提下，短链依旧前往下载App页面。
+   * Qc3.App安装的前提下，短链只能打开首页，未能进入具体页面。
+   * Qc4.通过短链进入具体页面后，清除数据再次打开App，依旧进入短链对应的具体页面。
+   * Qc5.mLink短链动态参数如何传递中文？
+* QD[mLink](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#mlink)
+   * Qd1.App未安装时，通过短链跳转到下载页面，安装后，第一次打开未能实现场景还原。
+   * Qd2.通过mLink跳转直达的页面，如何做到“先显示启动动画，然后再做相应跳转”
+   * Qd3.通过mLink跳转直达的页面，如何做到“返回时进入首页，而不是退出程序”
+   * Qd4.跳转到具体页面后，如何获取动态参数。
+   * Qd5.提示MLink内的defaultMLinkCallback持有activity导致内存泄露。
+   * Qd6.mLink集成跳转到相应activity时黑屏。
+   * Qd7.App卸载后再安装，再次进入具体页面，或者没点击过短链的手机也出现了场景还原。
+* QE[应用宝](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#应用宝)
+   * Qe1.集成了应用宝跳转，但是从微信打开时没有直接跳转，或者依旧会显示中间页,没有直接打开App。
+   * Qe2.集成了应用宝跳转，但是手机上没有安装应用宝怎么办？
+   * Qe3.程序在后台时，从微信内通过应用宝跳转无法跳转到具体页。
+   * Qe4.如何开启应用宝跳转
+   * Qe5.开启了应用宝跳转，为何getIntent().getData()为空
+   * Qe6.应用打开具体页面后，又重新打开了首页。
+* QF[其他](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#其他)
 
 魔窗位
 ===
 
-###Q1.魔窗位活动不能展示
+###Qa1.魔窗位活动不能展示
 A:如果出现此问题，请按照以下步骤排查。<br>
 1. AndroidManifest.xml内正确填写魔窗APP_ID以及MWActivity等。<br>
 2. 魔窗后台正确开启活动，并投放到相应的魔窗位<br>
@@ -43,17 +44,17 @@ A:如果出现此问题，请按照以下步骤排查。<br>
 
 分享
 ===
-###Q2.分享弹框缺少图标
+###Qb1.分享弹框缺少图标
 A:将assets文件夹下的文件拷贝到相应文件夹即可。
 
-###Q3.不能分享
+###Qb2.不能分享
 A:现阶段魔窗支持微信分享。<br>
 1）前往微信开放平台申请微信AppID，
 [参考文档](https://open.weixin.qq.com)<br>
 注意：包名以及应用签名不要写错。<br>
 2）将微信AppID填写在魔窗后台->帐号设置->应用管理->设置分享平台<br>
 
-###Q4.Jar包重复（暂未集成新浪微博分享，忽略此步）
+###Qb3.Jar包重复（暂未集成新浪微博分享，忽略此步）
 A:如果显示微信分享等jar包重复。（特别如果集成了shareSDK，会报微博的jar包重复）<br>
 1. 将微信jar包libmma.jar删除。<br>
 2. 初始化魔窗SDK时，启用shareSDK<br>
@@ -64,17 +65,17 @@ A:如果显示微信分享等jar包重复。（特别如果集成了shareSDK，�
 
 短链接
 ====
-###Q5.短链内的参数值能动态修改么？
+###Qc1.短链内的参数值能动态修改么？<br>
 A:可以，短链支持将参数的动态值作为 query 放在后面<br>
-例如:http://a.t.mlinks.cc/ANax?id=12345
+例如:http://a.t.mlinks.cc/ANax?id=12345<br>
 
-###Q6.App安装的前提下，短链依旧前往下载App页面。
+###Qc2.App安装的前提下，短链依旧前往下载App页面。<br>
 A:换一台其他品牌的手机验证或者换一个浏览器进行验证比如UC、QQ浏览器，因为有些机型原生浏览器不支持scheme。如果依旧不行，则排查是否Scheme配置错误。<br>
 遇到这个问题的时候，我们的第一反应是检查Scheme有没有配置错误。因为程序未能打开App，所以肯定是集成的初始阶段出了问题。<br>
 ①检查AndroidManifest.xml内的Scheme是否配置正确。此处比较容易出错的是，后台配置scheme需要”://”，而Android内配置时不需要”://”<br>
 ②后台填写Scheme和配置mLink服务需要注意，其中Scheme需要用全小写字母。如果有数字，数字不能放在开头。<br>
 
-###Q7.App安装的前提下，短链只能打开首页，未能进入具体页面。
+###Qc3.App安装的前提下，短链只能打开首页，未能进入具体页面。<br>
 A:有如下可能原因。 <br>
 ①	检查register回调有没有写错。（register要写在启动页的onCreate内）<br>
 ②	检查router入口有没有漏掉或者写错位置。 （router是真正的入口，如果有启动动画等，可以方在动画后。）<br>
@@ -82,18 +83,21 @@ A:有如下可能原因。 <br>
 ④	如果开启了应用宝跳转，则检查checkYYB接口有没有漏写，（checkYYB需要放在耗时的启动之后，跟启动首页的startActivity放在一起。）<br>
 如果以上都没有错误，我们可以利用Charles抓包，查看dpls/v2接口内有没有正确返回mLink的服务uri。从而判断后台是否配置正确。
 
-###Q8.通过短链进入具体页面后，清除数据再次打开App，依旧进入短链对应的具体页面。
+###Qc4.通过短链进入具体页面后，清除数据再次打开App，依旧进入短链对应的具体页面。<br>
 A:“程序安装后第一次打开，魔窗mLink会跟后台通信实现场景还原。App清除数据后，mLink会判断程序为第一次安装。此时请求后台并匹配成功。所以会进入具体页面”。<br>
 用户实际使用时基本不会发生此类情况。属于极小概率事件。<br>
 
+###Qc5.mLink短链动态参数如何传递中文？<br>
+A:短链后面如果需要添加中文等字符，需要将相关value值encode一下。<br>
+
 MLink
 ===
-###Q9.App未安装时，通过短链跳转到下载页面，安装后，第一次打开未能实现场景还原。
+###Qd1.App未安装时，通过短链跳转到下载页面，安装后，第一次打开未能实现场景还原。
 A:
 ①新版本SDK需要在初始化结束后手动调用MLink.getInstance(this).deferredRouter()接口。<br>
 ②router必须要写在启动页。否则安装后，第一次打开无法场景还原，且走了router后就不要再走跳转到首页的逻辑。<br>
 
-###Q10.通过mLink跳转直达的页面，如何做到“先显示启动动画，然后再做相应跳转”
+###Qd2.通过mLink跳转直达的页面，如何做到“先显示启动动画，然后再做相应跳转”
 A:可以在动画结束时再调用router,如下：<br>
 ```Java
 Uri mLink = getIntent().getData();
@@ -101,7 +105,7 @@ Uri mLink = getIntent().getData();
                 MLink.getInstance(this).router(mLink);
             }            
 ```
-###Q11.通过mLink跳转直达的页面，如何做到“返回时进入首页，而不是退出程序”
+###Qd3.通过mLink跳转直达的页面，如何做到“返回时进入首页，而不是退出程序”<br>
 A:有两种方法：<br>
 方法①<br>
 启动页面调用router的地方稍作调整，将跳转到首页的代码放在getIntent().getData()!=null的判断外面：<br>
@@ -145,7 +149,7 @@ MLink.getInstance(this).register("mLink的Key", new MLinkCallback() {
 ```
 第二步：在DetailActivity内的返回函数内，根据intent.getBooleanExtra("mlink",false)是否为true来跳转到首页。
 
-###Q12.跳转到具体页面后，如何获取动态参数。
+###Qd4.跳转到具体页面后，如何获取动态参数。
 A：例如，我们想获取mw_id这样的动态参数：<br>
 ①在mLink服务那，如下配置mwdemo://host?mw_id=:mw_id<br>
 ②配置短链时，可以配置mw_id的默认值，也可以在query直接赋值<br>
@@ -154,7 +158,7 @@ A：例如，我们想获取mw_id这样的动态参数：<br>
 如果利用register，则所有的参数，都放在MLinkCallback回调的Map paramMap内。<br>
 如果利用注解，则可用getIntent().getStringExtra("key")获取。
 
-###Q13.提示MLink内的defaultMLinkCallback持有activity导致内存泄露。
+###Qd5.提示MLink内的defaultMLinkCallback持有activity导致内存泄露。
 A:register内的回调需要用application的Context，且方法需要用static。具体如下
 
 ```
@@ -192,7 +196,7 @@ public static void registerForMLinkCallback() {
 ```
 
 
-###Q14.mLink集成跳转到相应activity时黑屏
+###Qd6.mLink集成跳转到相应activity时黑屏
 A:第一步：xxx/res/values/styles.xml中加入自定义Activity的Theme，如下所示：<br>
 ```Java
 <style name="Transparent" parent="android:Theme.Light">  
@@ -208,24 +212,24 @@ A:第一步：xxx/res/values/styles.xml中加入自定义Activity的Theme，如�
     android:theme="@style/Transparent"/>
 ```
 
-###Q15.App卸载后再安装，再次进入具体页面，或者没点击过短链的手机也出现了场景还原。
+###Qd7.App卸载后再安装，再次进入具体页面，或者没点击过短链的手机也出现了场景还原。
 A:场景还原是通过魔窗后台的模糊匹配进行的。而模糊匹配的结果时效是一个小时。也就是说在一个小时内，你重新安装App都会场景还原。
 模糊匹配用到的UA主要有分辨率、IP地址等，只要在同一个局域网内点击过短链，会有概率出现没点过短链的手机，第一次安装也会实现场景还原。
 用户实际使用的场景内，不会有影响。
 
 应用宝
 ===
-###Q16.集成了应用宝跳转，但是从微信打开时没有直接跳转，或者依旧会显示中间页,没有直接打开App。
+###Qe1.集成了应用宝跳转，但是从微信打开时没有直接跳转，或者依旧会显示中间页,没有直接打开App。
 A：<br>
 ①确保后台打开应用宝开关。魔窗后台将下载链接改为应用宝的地址，并且在mLink服务的高级设置内打开应用宝跳转开关。<br>
 ②保证应用宝商店里的App跟手机里的App的版本号和包名保持一致<br>
 
-###Q17.集成了应用宝跳转，但是手机上没有安装应用宝怎么办？
+###Qe2.集成了应用宝跳转，但是手机上没有安装应用宝怎么办？
 A: 可以在应用宝的H5页面里，点击普通打开，并选择继续，就能打开app了。具体可以看下面的动画。
 
 <img src="images/android-1.gif" width="300" height="450" />
 
-###Q18.程序在后台时，从微信内通过应用宝跳转无法跳转到具体页。
+###Qe3.程序在后台时，从微信内通过应用宝跳转无法跳转到具体页。
 A:首先切换一下网络，排除因网络不稳定导致的失败（应用宝跳转需要根据checkYYB()接口去跟后台通信。通过模糊匹配来进行具体页面跳转）。除此之外，可按照以下情况调整：
 情况①，在公共Activity的onStart()方法中调用如下代码。
 ```
@@ -258,7 +262,7 @@ public class BaseActivity extends AppCompatActivity {
    }
 ```
 
-###Q19.如何开启应用宝跳转。
+###Qe4.如何开启应用宝跳转。
 A:<br>
 1. 在魔窗后台，进入“mLink”菜单下“高级设置”，填写应用宝微下载地址。如何配置微下载地址：
 登录腾讯开放平台，选择一款Android应用，选择“运营服务”中的“微下载”获取微下载地址，格式为“http://a.app.qq.com/o/simple.jsp?pkgname=包名”， 如http://a.app.qq.com/o/simple.jsp?pkgname=me.bolo.android.client 为波罗蜜的微下载地址。<br>
@@ -267,11 +271,11 @@ A:<br>
 http://www.magicwindow.cn/doc/sdk-android.html#begin-start/mLink 中章节5.2.5
 4.应用宝上的包名与版本号要与App的保持一致。否则应用宝无法打开App。
 
-###Q20.开启了应用宝跳转，为何getIntent().getData()为空
+###Qe5.开启了应用宝跳转，为何getIntent().getData()为空
 A:应用宝打开App是通过包名来直接打开App的，而不是scheme，所以getData()为空。<br>
 也正因如此，所以我们需要在getData()为空时调用checkYYB()接口，来通过后台拿到具体页面的Scheme。从而跳转到具体页面<br>
 
-###Q21.应用打开具体页面后，又重新打开了首页。
+###Qe6.应用打开具体页面后，又重新打开了首页。
 A:此问题分两种情况<br>
 ①未开启应用宝时， 说明router调用时，有一个handler之类的延迟操作重新打开了首页。走router时需要将handler排除掉。<br>
 ②开启应用宝时，说明checkYYB接口调用前后有比较耗时的初始化操作，将checkYYB移到耗时操作之后，跟进入首页的startActivity并列放置即可。
