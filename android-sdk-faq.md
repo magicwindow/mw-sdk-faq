@@ -24,6 +24,7 @@ FAQ分类
    * Qd5.提示MLink内的defaultMLinkCallback持有activity导致内存泄露。
    * Qd6.mLink集成跳转到相应activity时黑屏。
    * Qd7.App卸载后再安装，再次进入具体页面，或者没点击过短链的手机也出现了场景还原。
+   * Qd8.如果想实现用户登录后再场景还原，需要怎么做？
 * QE[应用宝](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#应用宝)
    * Qe1.集成了应用宝跳转，但是从微信打开时没有直接跳转，或者依旧会显示中间页,没有直接打开App。
    * Qe2.集成了应用宝跳转，但是手机上没有安装应用宝怎么办？
@@ -228,6 +229,13 @@ A:第一步：xxx/res/values/styles.xml中加入自定义Activity的Theme，如�
 A:场景还原是通过魔窗后台的模糊匹配进行的。而模糊匹配的结果时效是一个小时。也就是说在一个小时内，你重新安装App都会场景还原。
 模糊匹配用到的UA主要有分辨率、IP地址等，只要在同一个局域网内点击过短链，会有概率出现没点过短链的手机，第一次安装也会实现场景还原。
 用户实际使用的场景内，不会有影响。
+
+###Qd8.如果想实现用户登录后再场景还原，需要怎么做？
+A:用户登陆完以后调用一个api:<br>
+```Java
+    MLink.getInstance(this).deferredRouter();
+```
+deferredRouter()是在sdk内部会判断App是否需要进行场景还原，并且记录了场景还原的uri scheme。然后如果需要场景还原的话，deferedRounter()会调用类似router()。
 
 应用宝
 ===
