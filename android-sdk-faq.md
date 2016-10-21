@@ -15,6 +15,7 @@ FAQ分类
    * Qc3.App安装的前提下，短链只能打开首页，未能进入具体页面。
    * Qc4.通过短链进入具体页面后，清除数据再次打开App，依旧进入短链对应的具体页面。
    * Qc5.mLink短链动态参数如何传递中文？
+   * Qc6.如果使用注解，怎么在App中获取参数？
 * QD[mLink](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#mlink)
    * Qd1.App未安装时，通过短链跳转到下载页面，安装后，第一次打开未能实现场景还原。
    * Qd2.通过mLink跳转直达的页面，如何做到“先显示启动动画，然后再做相应跳转”
@@ -90,6 +91,15 @@ A:“程序安装后第一次打开，魔窗mLink会跟后台通信实现场景�
 ###Qc5.mLink短链动态参数如何传递中文？<br>
 A:短链后面如果需要添加中文等字符，需要将相关value值encode一下。<br>
 
+###Qc6.如果使用注解，怎么在App中获取参数？<br>
+A:可以用如下的方式获取
+```Java
+        Intent intent = getIntent();
+        if (intent != null) {
+            String param = intent.getStringExtra("param");
+        }
+```
+  
 MLink
 ===
 ###Qd1.App未安装时，通过短链跳转到下载页面，安装后，第一次打开未能实现场景还原。
@@ -100,10 +110,10 @@ A:
 ###Qd2.通过mLink跳转直达的页面，如何做到“先显示启动动画，然后再做相应跳转”
 A:可以在动画结束时再调用router,如下：<br>
 ```Java
-Uri mLink = getIntent().getData();
-            if(mLink!=null){
-                MLink.getInstance(this).router(mLink);
-            }            
+         Uri mLink = getIntent().getData();
+         if(mLink!=null){
+              MLink.getInstance(this).router(mLink);
+         }            
 ```
 ###Qd3.通过mLink跳转直达的页面，如何做到“返回时进入首页，而不是退出程序”<br>
 A:有两种方法：<br>
