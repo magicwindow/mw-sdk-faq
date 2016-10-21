@@ -31,6 +31,7 @@ FAQ分类
    * Qe4.如何开启应用宝跳转
    * Qe5.开启了应用宝跳转，为何getIntent().getData()为空
    * Qe6.应用打开具体页面后，又重新打开了首页。
+   * Qe7.checkYYB()是如何实现的？为何YYBCallback只有一个onFailed()？
 * QF[其他](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#其他)
 
 魔窗位
@@ -204,6 +205,7 @@ public static void registerForMLinkCallback() {
     });
 }
 ```
+或者把registerForMLinkCallback()写在一个单独的工具类中。
 
 
 ###Qd6.mLink集成跳转到相应activity时黑屏
@@ -290,6 +292,13 @@ A:此问题分两种情况<br>
 ①未开启应用宝时， 说明router调用时，有一个handler之类的延迟操作重新打开了首页。走router时需要将handler排除掉。<br>
 ②开启应用宝时，说明checkYYB接口调用前后有比较耗时的初始化操作，将checkYYB移到耗时操作之后，跟进入首页的startActivity并列放置即可。
 
+###Qe7.checkYYB()是如何实现的？为何YYBCallback只有一个onFailed()？
+A:
+如果用户在微信中使用短链接，建议App在我们后台开启应用宝。<br>
+因为从微信过来的是拿不到getIntent().getData()的，无法调用router()。
+所以需要使用checkYYB()。而checkYYB()是一个模糊匹配的过程，它会调用网络的接口，然后在sdk内部进行匹配，如果匹配上了它本身会调用类似router()，所以无需成功的回调。
+checkYYB()方法建议使用带YYBCallback的，因为checkYYB()本身有超时机制，超过一定的时间或者没匹配上就会走onFailed()。
+onFailed()可以是跳到App的MainActivity之类的。
 
 其他
 ===
