@@ -163,10 +163,11 @@ MLink.getInstance(this).register("mLink的Key", new MLinkCallback() {
 第二步：在DetailActivity内的返回函数内，根据intent.getBooleanExtra("mlink",false)是否为true来跳转到首页。
 
 ###Qd4.跳转到具体页面后，如何获取动态参数。
-A：例如，我们想获取mw_id这样的动态参数：<br>
-①在mLink服务那，如下配置mwdemo://host?mw_id=:mw_id<br>
-②配置短链时，可以配置mw_id的默认值，也可以在query直接赋值<br>
-例如：http://a.t.mlinks.cc/Aaaa?mw_id=12345<br>
+A：例如，我们想获取id这样的动态参数：<br>
+①在mLink服务那，如下配置mwdemo://host?id=:id<br>
+②配置短链时，可以配置id的默认值，也可以在query直接赋值<br>
+例如：http://a.t.mlinks.cc/Aaaa?id=12345<br>
+注意:动态参数不能以"mw_"开头，此为魔窗保留字。<br>
 ③代码内可以如下获取。<br>
 如果利用register，则所有的参数，都放在MLinkCallback回调的Map paramMap内。<br>
 如果利用注解，则可用getIntent().getStringExtra("key")获取。
