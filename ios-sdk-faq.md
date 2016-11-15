@@ -1,5 +1,6 @@
 #魔窗iOS SDK FAQ
 
+
 FAQ分类
 ---
 * [Universal link](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#universal-link)
@@ -13,15 +14,20 @@ FAQ分类
   * Q7.在Debug下测试正常，但是在Release下不能正常一键唤起
   * Q8.手机上在1个小时之内没有点击过短链接，第一次安装出现场景还原
   * Q9.当App在openUrl方法中接收到URL后，如何确认当前的URL来源是魔窗？
+  * Q10.在微信中点击短链接，会出现“打开App”的中间页面，如何去掉这个页面？
+  * Q11.在iOS9以上，使用短链接唤起App，App接收到链接是https://s.mlinkscc/xxxx,而不是短链接或者在后台填写的scheme uri，为什么？
 * [应用宝](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#应用宝)
-  * Q10.iOS7、8为什么要开启应用宝跳转？
+  * Q12.iOS7、8为什么要开启应用宝跳转？
+* [魔窗位](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#魔窗位)
+	* Q13.魔窗位上获取不到活动，error信息"No activities or activities have expired"	
 * [app发布](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#app发布)
-  * Q11.App Store提审时，对Advertising Identifier（IDFA）的配置
+  * Q14.App Store提审时，对Advertising Identifier（IDFA）的配置
 * [其他](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#其他)
-  * Q12.什么是URL Scheme，怎么配置
-  * Q13.微信分享，登录或者支付不能正常使用
-  * Q14.手动在工程中添加SDK，初始化SDK的时候出现crash
-  * Q15.老版本App没有集成SDK，但是H5中使用了短链接，该怎么处理？
+  * Q15.什么是URL Scheme，怎么配置
+  * Q16.微信分享，登录或者支付不能正常使用
+  * Q17.手动在工程中添加SDK，初始化SDK的时候出现crash
+  * Q18.老版本App没有集成SDK，但是H5中使用了短链接，该怎么处理？
+
 
 
 Universal link
@@ -52,6 +58,7 @@ Universal link
 ![](http://7xk40m.com2.z0.glb.qiniucdn.com/img-20160601-02.png)
 进入苹果开发者帐号，将当前App ID 的Associated Domains 设置成Enable，如下图：
 ![](images/ios2-1.png)
+
 
 短链接
 ===
@@ -94,16 +101,34 @@ Universal link
 universal link的话，有固定的前缀"s.mlinks.cc"
 scheme的话，需要开发者自己添加标识，可以在魔窗后台的URI中添加一个参数，类似mw_source=:mw_source 在使用魔窗的服务唤起的时候，h5中设置这个参数为1。
 
+###Q10.在微信中点击短链接，会出现“打开App”的中间页面，如何去掉这个页面？
+在H5中加段JS代码就可以去掉这个中间页面，详情见文档：<http://www.magicwindow.cn/doc/mlink-h5.html#begin-start/section-title-2>
+
+###Q11.在iOS9以上，使用短链接唤起App，App接收到链接是https://s.mlinkscc/xxxx,而不是短链接或者在后台填写的scheme uri，为什么？
+短链接的样式是 http://a.mlinks.cc/XXXX
+iOS9及以上，App接收到的是universal link，https://s.mlinks.cc/XXXX
+iOS8以下，App接收到的是后台填写的scheme uri
+短链接会根据不同的系统、不同的场景自动解析成universal link或者scheme来唤起App
+
 应用宝
 ===
-###Q10.iOS7、8为什么要开启应用宝跳转？
+###Q12.iOS7、8为什么要开启应用宝跳转？
 在iOS7、8的系统中，开启应用宝跳转后可以借助应用宝跳转到AppStore，在AppSore中直接打开应用。开启方法如下：<br>
 1. 登录腾讯开放平台，选择该iOS应用对应的Android版本，选择“运营服务”中的“微下载”，在微下载地址处配置对应的AppStore下载地址。<br>
 2. 将该微下载地址填写到魔窗后台“mLink”菜单下的“高级设置”中，微下载地址的格式为“http://a.app.qq.com/o/simple.jsp?pkgname=包名”， 如http://a.app.qq.com/o/simple.jsp?pkgname=me.bolo.android.client 为波罗蜜的微下载地址。<br>
 3. 配置完成后，在“高级设置”中开启“iOS7/8开启应用宝跳转”的开关。
+
+魔窗位
+===
+###Q13.魔窗位上获取不到活动，error信息"No activities or activities have expired"
+（1）确保魔窗位上已经投放了活动，如何创建活动并投放到魔窗位上,可以参考文档<http://www.magicwindow.cn/doc/mw-validation.html>
+
+（2）投放的时间是否过期，地域是否在活动的投放范围内
+ 
+
 app发布
 ===
-###Q11.App Store提审时，对Advertising Identifier（IDFA）的配置
+###Q14.App Store提审时，对Advertising Identifier（IDFA）的配置
 
 SDK中使用了IDFA，App在往AppStore提审的时候，需要勾选以下选项
 ![](images/ios9-1.png)
@@ -126,7 +151,7 @@ SDK中使用了IDFA，App在往AppStore提审的时候，需要勾选以下选�
 
 其他
 ===
-###Q12.什么是URL Scheme，怎么配置
+###Q15.什么是URL Scheme，怎么配置
 OS系统中 App之前是相互隔离的，通过URL Scheme，App之间可以相互调用，并且可以传递参数。
 
 在Xcode中，选中Target－Info－URL Types。比如填写magicWindow 在手机浏览器中输入 URL Scheme:// （比如 magicWindow://），如果可以唤起App，说明该URL Scheme 配置成功。
@@ -134,17 +159,17 @@ OS系统中 App之前是相互隔离的，通过URL Scheme，App之间可以相�
 可以参考：<http://www.magicwindow.cn/doc/#uri-scheme>
 
 
-###Q13.微信分享，登录或者支付不能正常使用
+###Q16.微信分享，登录或者支付不能正常使用
 请在App管理中填写正确的微信AppID（前往微信开放平台申请微信AppID，<https://open.weixin.qq.com>）
 ![](images/ios5-1.png)
 
 
-###Q14.手动在工程中添加SDK，初始化SDK的时候出现crash
+###Q17.手动在工程中添加SDK，初始化SDK的时候出现crash
 在AppDelegate中调用registerApp方法，初始化SDK的时候，出现crash信息，请确认是否将整个的SDK包都放到了整个工程中，并且确认MagicWindow.bundle是否成功加入到了相应的target中
 
 **建议使用Cocoapods集成SDK，pod 'MagicWindowSDK'**
 ![](images/ios10-1.png)
 
-###Q15.老版本App没有集成SDK，但是H5中使用了短链接，该怎么处理？
+###Q18.老版本App没有集成SDK，但是H5中使用了短链接，该怎么处理？
 (1) 如果客户没有集成SDK，但是已经实现了schema，并且和在我们后台配置的一致，则除了场景还原不能实现以及监测不到数据，功能上和集成了SDK没有任何影响<br>
 (2) 如果客户没有集成SDK，而且schema也没实现，那么这个时候点击短链接永远是未下载的情况
