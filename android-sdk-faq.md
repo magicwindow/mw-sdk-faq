@@ -300,7 +300,7 @@ A:应用宝打开App是通过包名来直接打开App的，而不是scheme，所
 ###Qe6.应用打开具体页面后，又重新打开了首页。
 A:此问题分两种情况<br>
 ①未开启应用宝时， 说明router调用时，有一个handler之类的延迟操作重新打开了首页。走router时需要将handler排除掉。<br>
-②开启应用宝时，说明checkYYB接口调用前后有比较耗时的初始化操作，将checkYYB移到耗时操作之后，跟进入首页的startActivity并列放置即可。
+②开启应用宝时，将checkYYB()接口更换为带有callback的checkYYB()接口，且将进入首页的逻辑移到callback内即可。
 
 ###Qe7.checkYYB()是如何实现的？为何YYBCallback只有一个onFailed()？
 A:
