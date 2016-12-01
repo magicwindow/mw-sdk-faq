@@ -164,7 +164,7 @@ MLink.getInstance(this).register("mLink的Key", new MLinkCallback() {
 
 ###Qd4.跳转到具体页面后，如何获取动态参数。
 A：例如，我们想获取id这样的动态参数：<br>
-①在mLink服务那，如下配置mwdemo://host?id=:id<br>
+①在魔窗后台“mLink服务-->Android URI”那，如下配置mwdemo://host?id=:id<br>
 ②配置短链时，可以配置id的默认值，也可以在query直接赋值<br>
 例如：http://a.t.mlinks.cc/Aaaa?id=12345<br>
 注意:动态参数不能以"mw_"开头，此为魔窗保留字。<br>
