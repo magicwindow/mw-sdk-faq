@@ -25,6 +25,7 @@ FAQ分类
    * Qd6.mLink集成跳转到相应activity时黑屏。
    * Qd7.App卸载后再安装，再次进入具体页面，或者没点击过短链的手机也出现了场景还原。
    * Qd8.如果想实现用户登录后再场景还原，需要怎么做？
+   * Qd9.App只有一个activity(单activity)，如何集成？
 * QE[应用宝](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#应用宝)
    * Qe1.集成了应用宝跳转，但是从微信打开时没有直接跳转，或者依旧会显示中间页,没有直接打开App。
    * Qe2.集成了应用宝跳转，但是手机上没有安装应用宝怎么办？
@@ -238,6 +239,67 @@ A:用户登陆完以后调用一个api:<br>
     MLink.getInstance(this).deferredRouter();
 ```
 deferredRouter()是在sdk内部会判断App是否需要进行场景还原，并且记录了场景还原的uri scheme。然后如果需要场景还原的话，deferedRounter()会调用类似router()。
+
+###Qd9.App只有一个activity(单activity)，如何集成？
+```Java
+ @Override
+    public void onCreate(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_splash);
+        initMW();
+        registerForMLinkCallback();
+        Uri mLink = getIntent().getData();
+        MLink.getInstance(SplashActivity.this).deferredRouter();
+
+        if (mLink != null) {
+            MLink.getInstance(this).router(mLink);
+        } else {
+            MLink.getInstance(this).checkYYB();
+        }
+    }
+    private void initMW() {
+        MWConfiguration config = new MWConfiguration(this);
+        config.setDebugModel(true)
+                .setPageTrackWithFragment(true)
+                .setWebViewBroadcastOpen(true)
+                .setSharePlatform(MWConfiguration.ORIGINAL);
+        MagicWindowSDK.initSDK(config);
+    }
+    private static void registerForMLinkCallback() {
+        MLink mLink = MagicWindowSDK.getMLink();
+        mLink.registerDefault(new MLinkCallback() {
+            @Override
+            public void execute(Map<String, String> paramMap, Uri uri, Context context) {
+                //todo: 获取动态参数,用来处理
+                String id = "";
+                if (paramMap != null) {
+                    id = paramMap.get("id");
+                } else if(uri!=null) {
+                    id = uri.getQueryParameter("id");
+                }
+                //todo: 此处可以根据获取的动态参数id来做相应的处理
+
+//                Intent intent = new Intent(context, WXEntryActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                context.startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Uri mLink = intent.getData();
+        setIntent(intent);
+        if (mLink != null) {
+            MagicWindowSDK.getMLink().router(mLink);
+        } else {
+            MLink.getInstance(this).checkYYB();
+        }
+    }
+```
 
 应用宝
 ===
