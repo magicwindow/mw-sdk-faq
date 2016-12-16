@@ -25,7 +25,7 @@ FAQ分类
    * Qd6.mLink集成跳转到相应activity时黑屏。
    * Qd7.App卸载后再安装，再次进入具体页面，或者没点击过短链的手机也出现了场景还原。
    * Qd8.如果想实现用户登录后再场景还原，需要怎么做？
-   * Qd9.App只有一个activity(单activity)，如何集成？
+   * Qd9.App只有一个activity(单activity)，如何集成？
 * QE[应用宝](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#应用宝)
    * Qe1.集成了应用宝跳转，但是从微信打开时没有直接跳转，或者依旧会显示中间页,没有直接打开App。
    * Qe2.集成了应用宝跳转，但是手机上没有安装应用宝怎么办？
