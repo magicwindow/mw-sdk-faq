@@ -9,6 +9,7 @@ FAQ分类
    * Qb1.分享弹框缺少图标
    * Qb2.不能分享
    * Qb3.Jar包重复（暂未集成新浪微博分享，忽略此步）
+   * Qb4.sdk中微信jar包比微信开放平台上的小很多
 * QC[短链接](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#短链接)
    * Qc1.短链内的参数值能动态修改么？
    * Qc2.App安装的前提下，短链依旧前往下载App页面。
@@ -66,6 +67,10 @@ A:如果显示微信分享等jar包重复。（特别如果集成了shareSDK，�
   MWConfiguration config = new MWConfiguration(this);
   config.setSharePlatform(MWConfiguration.SHARE_SDK);
 ```
+
+###Qb4.sdk中微信jar包比微信开放平台上的小很多
+A:sdk中的微信jar包是我们找到的最小可用的包，做过兼容性测试是没有问题的。从sdk大小角度来考虑，才使用此包。<br>
+  您如果已经从微信开放平台上下载了，直接用微信开放平台上的。
 
 短链接
 ====
