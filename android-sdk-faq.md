@@ -217,11 +217,11 @@ public static void registerForMLinkCallback() {
 或者把registerForMLinkCallback()写在一个单独的工具类中。
 
 
-###Qd6.mLink集成跳转到相应activity时黑屏
-引起这个的原因是跳转到具体页面前，App首页或启动页加载了过多数据导致。
-有两个方案：
-方案① 利用handler延迟一会再进行跳转。
-方案②
+###Qd6.mLink集成跳转到相应activity时黑屏<br>
+引起这个的原因是跳转到具体页面前，App首页或启动页加载了过多数据导致。<br>
+有两个方案：<br>
+方案① 利用handler延迟一会再进行跳转。<br>
+方案②<br>
 A:第一步：xxx/res/values/styles.xml中加入自定义Activity的Theme，如下所示：<br>
 ```Java
 <style name="Transparent" parent="android:Theme.Light">  
