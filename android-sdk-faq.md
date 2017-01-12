@@ -218,6 +218,10 @@ public static void registerForMLinkCallback() {
 
 
 ###Qd6.mLink集成跳转到相应activity时黑屏
+引起这个的原因是跳转到具体页面前，App首页或启动页加载了过多数据导致。
+有两个方案：
+方案① 利用handler延迟一会再进行跳转。
+方案②
 A:第一步：xxx/res/values/styles.xml中加入自定义Activity的Theme，如下所示：<br>
 ```Java
 <style name="Transparent" parent="android:Theme.Light">  
