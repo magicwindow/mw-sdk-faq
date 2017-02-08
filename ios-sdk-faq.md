@@ -16,7 +16,7 @@ FAQ分类
   * QB6.手机上在1个小时之内没有点击过短链接，第一次安装出现场景还原
   * QB7.当App在openUrl方法中接收到URL后，如何确认当前的URL来源是魔窗？
   * QB8.在微信中点击短链接，会出现“打开App”的中间页面，如何去掉这个页面？
-  * QB9.在iOS9以上，使用短链接唤起App，App接收到链接是https://s.mlinkscc/xxxx,而不是短链接或者在后台填写的scheme uri，为什么？
+  * QB9.在iOS9以上，使用短链接唤起App，App接收到链接是“https://s.mlinkscc/xxxx”,而不是短链接或者在后台填写的scheme uri，为什么？
 * [应用宝](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#应用宝)
   * QC1.iOS7、8为什么要开启应用宝跳转？
 * [魔窗位](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#魔窗位)
@@ -42,7 +42,7 @@ Universal link
 当使用Universal link打开App之后，右上角会出现“mlinks.cc”,点击右上角会取消Universal link
 ![](images/iosa1-1.png)
 
-在Safari中打开链接，会出现smart banner，点击“打开”按钮，Universal link将恢复正常
+在Safari中打开链接，按照图中所示下拉页面，会出现smart banner，点击“打开”按钮，Universal link将恢复正常 
 ![](images/iosa1-2.png)
 
 (3)Team ID 是否填写正确
@@ -109,10 +109,13 @@ scheme的话，需要开发者自己添加标识，可以在魔窗后台的URI�
 ###QB8.在微信中点击短链接，会出现“打开App”的中间页面，如何去掉这个页面？
 在H5中加段JS代码就可以去掉这个中间页面，详情见文档：<http://www.magicwindow.cn/doc/mlink-h5.html#begin-start/section-title-2>
 
-###QB9.在iOS9以上，使用短链接唤起App，App接收到链接是https://s.mlinks.cc/xxxx,而不是短链接或者在后台填写的scheme uri，为什么？
+###QB9.在iOS9以上，使用短链接唤起App，App接收到链接是“https://s.mlinks.cc/xxxx”,而不是短链接或者在后台填写的scheme uri，为什么？
 短链接的样式是 http://a.mlinks.cc/XXXX
+
 iOS9及以上，App接收到的是universal link，https://s.mlinks.cc/XXXX
+
 iOS8以下，App接收到的是后台填写的scheme uri
+
 短链接会根据不同的系统、不同的场景自动解析成universal link或者scheme来唤起App
 
 应用宝
