@@ -16,7 +16,7 @@ FAQ分类
   * QB6.手机上在1个小时之内没有点击过短链接，第一次安装出现场景还原
   * QB7.当App在openUrl方法中接收到URL后，如何确认当前的URL来源是魔窗？
   * QB8.在微信中点击短链接，会出现“打开App”的中间页面，如何去掉这个页面？
-  * QB9.在iOS9以上，使用短链接唤起App，App接收到链接是"https://s.mlinkscc/xxxx",而不是短链接或者在后台填写的scheme uri，为什么？
+  * QB9.在iOS9以上，使用短链接唤起App，App接收到链接是"https://s.mlinkscc/xxxx"，而不是短链接或者在后台填写的scheme uri，为什么？
 * [应用宝](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#应用宝)
   * QC1.iOS7、8为什么要开启应用宝跳转？
 * [魔窗位](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#魔窗位)
