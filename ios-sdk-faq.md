@@ -109,7 +109,7 @@ scheme的话，需要开发者自己添加标识，可以在魔窗后台的URI�
 ###QB8.在微信中点击短链接，会出现“打开App”的中间页面，如何去掉这个页面？
 在H5中加段JS代码就可以去掉这个中间页面，详情见文档：<http://www.magicwindow.cn/doc/mlink-h5.html#begin-start/section-title-2>
 
-###QB9.在iOS9以上，使用短链接唤起App，App接收到链接是“https://s.mlinks.cc/xxxx”,而不是短链接或者在后台填写的scheme uri，为什么？
+###QB9.在iOS9以上，使用短链接唤起App，App接收到链接是"https://s.mlinkscc/xxxx" ，而不是短链接或者在后台填写的scheme uri，为什么？
 短链接的样式是 http://a.mlinks.cc/XXXX
 
 iOS9及以上，App接收到的是universal link，https://s.mlinks.cc/XXXX
