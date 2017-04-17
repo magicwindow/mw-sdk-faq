@@ -7,6 +7,7 @@ FAQ分类
   * QA1.mLink和App都配置了Universal link，但是无法从微信跳转到App？
   * QA2.在编辑Associated Domains 的时候，报错，错误信息“An App ID with Identifier ‘com.XXX’ is not available”，怎么解决？
   * QA3.右上角的“mlinks.cc”如何去掉或者更改
+  * QA4.app重新签名之后，使用短链无法正常唤起app，如何解决？
 * [短链接](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#短链接)
   * QB1.通过短链进入具体页面后，删除App，重新安装App，依旧进入短链对应的具体页面。
   * QB2.短链内的参数值能动态修改么？
@@ -16,7 +17,7 @@ FAQ分类
   * QB6.手机上在1个小时之内没有点击过短链接，第一次安装出现场景还原
   * QB7.当App在openUrl方法中接收到URL后，如何确认当前的URL来源是魔窗？
   * QB8.在微信中点击短链接，会出现“打开App”的中间页面，如何去掉这个页面？
-  * QB9.在iOS9以上，使用短链接唤起App，App接收到链接是"https://s.mlinkscc/xxxx" ，而不是短链接或者在后台填写的scheme uri，为什么？
+  * QB9.在iOS9以上，使用短链接唤起App，App接收到url和点击的短链接不一样，也不是在后台填写的scheme uri，为什么？
 * [应用宝](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#应用宝)
   * QC1.iOS7、8为什么要开启应用宝跳转？
 * [魔窗位](https://github.com/magicwindow/mw-sdk-faq/blob/master/ios-sdk-faq.md#魔窗位)
@@ -51,9 +52,15 @@ Universal link
 ![](http://7xk40m.com2.z0.glb.qiniucdn.com/img-20160607-05.png)
 ![](images/iosa1-3.png)
 
-(4)自动打包和手动打包
+(4)更新profivision证书
+
+手动更新profivision证书，再重新打包安装app
+
+(5)自动打包和手动打包
 
 使用xcodebuild自动打包会影响Universal link的使用，请使用手动打包
+
+
 
 ###QA2.在编辑Associated Domains 的时候，报错，错误信息“An App ID with Identifier ‘com.XXX’ is not available”，怎么解决？
 ![](http://7xk40m.com2.z0.glb.qiniucdn.com/img-20160601-02.png)
@@ -64,6 +71,36 @@ Universal link
 iOS9+，在微信中唤起app之后，右上角会出现"mlinks.cc"的标记，这个是使用universal link唤起app的标记，和左边的返回标记一样，由系统控制，无法去掉，无法控制。
 如果要将"mlinks.cc"字改成自己域名的话，需要自己配置实现universal link，然后在后台的app管理中填写上自己的universal link url即可，mlink还是照常使用。
 ![](images/iosa3.png)
+
+###QA4.app重新签名之后，使用短链无法正常唤起app，如何解决？
+第一步，确保app在重新签名之前，可以使用短链接正常唤起
+
+第二步，查看重新签名之后的ipa中有没有包含正确的associated domain
+
+如何查看associated domain中的包含的内容是否正确？
+
+（1）$ cd /Users/cafei/Desktop/Example
+
+（2）$ unzip example.ipa
+
+（3）$ codesign -d –entitlements - Payload/example.app
+
+查看com.apple.developer.associated-domains中是否包含了魔窗的域名，如图中包含了魔窗的域名s.mlinks.cc即正确，否则错误，请重新签名。
+![](images/iosa4-1.png)
+
+其中每个app的魔窗域名是不一样的，并不都是s.mlinks.cc，可以在后台-app信息中查看当前app相对应的魔窗域名是什么,如图所示
+![](images/iosa4-3.png)
+
+第三步，app重新签名之后，bundle ID 和team ID都会改变，需要在后台中的app信息及时更新
+
+如何获取正确的team ID 和 bundle ID，如图
+![](images/iosa4-2.png)
+
+第四步，当后台app信息更新之后，需要重新安装app
+
+这一步很重要，一定要重新安装app才可以
+
+第五步，测试
 
 短链接
 ===
@@ -76,7 +113,7 @@ iOS9+，在微信中唤起app之后，右上角会出现"mlinks.cc"的标记，�
 ###QB2.短链内的参数值能动态修改么？
 可以，短链支持将参数的动态值作为 query 放在后面
 
-例如:http://a.t.mlinks.cc/ANax?id=12345
+例如:http://a.mlinks.cc/ANax?id=12345
 
 ###QB3.一键唤起成功，场景还原失败
 点击短链接的时间和安装App，第一次打开App的时间在60分钟之内，就会场景还原，（默认60分钟，时间可以在后台进行更改）。
@@ -103,16 +140,18 @@ iOS9+，在微信中唤起app之后，右上角会出现"mlinks.cc"的标记，�
 
 ###QB7.当App在openUrl方法中接收到URL后，如何确认当前的URL来源是魔窗？
 魔窗的URL分为两种，一种是scheme，一种是universal link。
-universal link的话，有固定的前缀"s.mlinks.cc"
+universal link的话，有固定的域名"mlinks.cc"，比如："s.mlinks.cc"或者"s2.mlink.cc"
 scheme的话，需要开发者自己添加标识，可以在魔窗后台的URI中添加一个参数，类似mw_source=:mw_source 在使用魔窗的服务唤起的时候，h5中设置这个参数为1。
 
 ###QB8.在微信中点击短链接，会出现“打开App”的中间页面，如何去掉这个页面？
 在H5中加段JS代码就可以去掉这个中间页面，详情见文档：<http://www.magicwindow.cn/doc/mlink-h5.html#begin-start/section-title-2>
 
-###QB9.在iOS9以上，使用短链接唤起App，App接收到链接是"https://s.mlinkscc/xxxx" ，而不是短链接或者在后台填写的scheme uri，为什么？
+###QB9.在iOS9以上，使用短链接唤起App，App接收到url和点击的短链接不一样，也不是在后台填写的scheme uri，为什么？
 短链接的样式是 http://a.mlinks.cc/XXXX
 
-iOS9及以上，App接收到的是universal link，https://s.mlinks.cc/XXXX
+iOS9及以上，App接收到的是universal link
+
+**(注意，短链接和universal link是两个不一样的链接，不要混为一谈)**
 
 iOS8以下，App接收到的是后台填写的scheme uri
 
@@ -181,3 +220,4 @@ OS系统中 App之前是相互隔离的，通过URL Scheme，App之间可以相�
 ###QF4.老版本App没有集成SDK，但是H5中使用了短链接，该怎么处理？
 (1) 如果客户没有集成SDK，但是已经实现了schema，并且和在我们后台配置的一致，则除了场景还原不能实现以及监测不到数据，功能上和集成了SDK没有任何影响<br>
 (2) 如果客户没有集成SDK，而且schema也没实现，那么这个时候点击短链接永远是未下载的情况
+
