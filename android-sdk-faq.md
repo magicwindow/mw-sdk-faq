@@ -12,7 +12,7 @@ FAQ分类
 * B. [mLink](https://github.com/magicwindow/mw-sdk-faq/blob/master/android-sdk-faq.md#短链接)
    * b1.短链内的参数值能动态修改么？
    * b2.App安装的前提下，短链依旧前往下载App页面。
-   * b3.App安装的前提下，短链只能打开首页，未能进入具体页面。
+   * b3.App安装的前提下，短链只能打开首页，未能进入具体页面（调起应用后没有执行注册的回调函数）。
    * b4.通过短链进入具体页面后，清除数据再次打开App，依旧进入短链对应的具体页面。
    * b5.mLink短链动态参数如何传递中文？
    * b6.如果使用注解，怎么在App中获取参数？
@@ -79,12 +79,12 @@ A:换一台其他品牌的手机验证或者换一个浏览器进行验证比如
 ①检查AndroidManifest.xml内的Scheme是否配置正确。此处比较容易出错的是，后台配置scheme需要”://”，而Android内配置时不需要”://”<br>
 ②后台填写Scheme和配置mLink服务需要注意，其中Scheme需要用全小写字母。如果有数字，数字不能放在开头。<br>
 
-### b3.App安装的前提下，短链只能打开首页，未能进入具体页面。<br>
+### b3.App安装的前提下，短链只能打开首页，未能进入具体页面（调起应用后没有执行注册的回调函数）。<br>
 A:有如下可能原因。 <br>
-①	检查register回调有没有写错。（register要写在启动页的onCreate内）<br>
-②	检查router入口有没有漏掉或者写错位置。 （router是真正的入口，如果有启动动画等，可以方在动画后。）<br>
-③	程序做了混淆，但是没有将魔窗的keep出来。<br>
-④	如果开启了应用宝跳转，则检查checkYYB接口有没有漏写，（checkYYB需要放在耗时的启动之后，跟启动首页的startActivity放在一起。）<br>
+① 检查register回调有没有写错。（register要写在启动页的onCreate内）<br>
+② 检查router入口有没有漏掉或者写错位置。 （router是真正的入口，如果有启动动画等，可以方在动画后。）<br>
+③ 程序做了混淆，但是没有将魔窗的keep出来。<br>
+④ 如果开启了应用宝跳转，则检查checkYYB接口有没有漏写，（checkYYB需要放在耗时的启动之后，跟启动首页的startActivity放在一起。）<br>
 如果以上都没有错误，我们可以利用Charles抓包，查看dpls/v2接口内有没有正确返回mLink的服务uri。从而判断后台是否配置正确。
 
 ### b4.通过短链进入具体页面后，清除数据再次打开App，依旧进入短链对应的具体页面。<br>
@@ -105,16 +105,17 @@ A:可以用如下的方式获取
 
 ### b7.App未安装时，通过短链跳转到下载页面，安装后，第一次打开未能实现场景还原。
 A:
-①新版本SDK需要在初始化结束后手动调用MLink.getInstance(this).deferredRouter()接口。<br>
+①新版本SDK需要在初始化结束后手动调用MLinkAPIFactory.createAPI(this).deferredRouter()接口。<br>
 ②后台mLink服务高级设置内“场景还原有效时间”确保不能是0。<br>
 ③尝试换一台手机试试，因为场景还原靠的是模糊匹配。有一定概率失败（成功率大于80%）
+④在启动页调用一下调用一下MLink.getInstance(this)初始化一下mLink。
 
 ### b8.通过mLink跳转直达的页面，如何做到“先显示启动动画，然后再做相应跳转”
 A:可以在动画结束时再调用router,如下：<br>
 ```Java
          Uri mLink = getIntent().getData();
          if(mLink!=null){
-              MLink.getInstance(this).router(mLink);
+              MLinkAPIFactory.createAPI(this).router(mLink);
          }            
 ```
 ### b9.通过mLink跳转直达的页面，如何做到“返回时进入首页，而不是退出程序”<br>
@@ -130,10 +131,10 @@ public void onCreate(Bundle savedInstanceState) {
     gotoHome();
     //跳转router调用
     if (getIntent().getData()!=null) {
-        MLink.getInstance(this).router(getIntent().getData());
+        MLinkAPIFactory.createAPI(this).router(getIntent().getData());
     } else {
         //如果需要应用宝跳转，则调用。否则不需要
-        MLink.getInstance(this).checkYYB();
+        MLinkAPIFactory.createAPI(this).checkYYB();
     }
     //跳转后结束当前activity
     finish();
@@ -142,9 +143,9 @@ public void onCreate(Bundle savedInstanceState) {
 方法②<br>
 可以处理直达页面的返回函数。<br>
 我们以跳转页为DetailActivity为例：<br>
-第一步，在MLink.getInstance(this).register()函数的回调函数增加一个intent.putExtra("mlink",true);<br>
+第一步，在MLinkAPIFactory.createAPI(this).register()函数的回调函数增加一个intent.putExtra("mlink",true);<br>
 ```Java
-MLink.getInstance(this).register("mLink的Key", new MLinkCallback() {
+MLinkAPIFactory.createAPI(this).register("mLink的Key", new MLinkCallback() {
             public void execute(Map<String, String> paramMap, Uri uri, Context context) {
                 Intent intent = new Intent(context, DetailActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -172,11 +173,11 @@ A：例如，我们想获取id这样的动态参数：<br>
 如果利用注解，则可用getIntent().getStringExtra("key")获取。
 
 ### b11.提示MLink内的defaultMLinkCallback持有activity导致内存泄露。
-A:register内的回调需要用application的Context，且方法需要用static。具体如下
+A:register内的回调需要用application的Context。具体如下
 
 ```
-public static void registerForMLinkCallback() {
-    MLink mLink = MagicWindowSDK.getMLink();
+public void registerForMLinkCallback() {
+    MLinkAPI mLink = MLinkAPIFactory.createAPI(mContext.getApplicationContext);
     mLink.register("mLink服务Key", new MLinkCallback() {
         public void execute(Map<String, String> paramMap, Uri uri, Context context) {
             //跳转
@@ -238,7 +239,7 @@ A:场景还原是通过魔窗后台的模糊匹配进行的。而模糊匹配的
 ### b14.如果想实现用户登录后再场景还原，需要怎么做？
 A:用户登陆完以后调用一个api:<br>
 ```Java
-    MLink.getInstance(this).deferredRouter();
+    MLinkAPIFactory.createAPI(this).deferredRouter();
 ```
 deferredRouter()是在sdk内部会判断App是否需要进行场景还原，并且记录了场景还原的uri scheme。然后如果需要场景还原的话，deferedRounter()会调用类似router()。
 
@@ -253,12 +254,12 @@ deferredRouter()是在sdk内部会判断App是否需要进行场景还原，并�
         initMW();
         registerForMLinkCallback();
         Uri mLink = getIntent().getData();
-        MLink.getInstance(SplashActivity.this).deferredRouter();
+        MLinkAPIFactory.createAPI(SplashActivity.this).deferredRouter();
 
         if (mLink != null) {
-            MLink.getInstance(this).router(mLink);
+            MLinkAPIFactory.createAPI(this).router(mLink);
         } else {
-            MLink.getInstance(this).checkYYB();
+            MLinkAPIFactory.createAPI(this).checkYYB();
         }
     }
     private void initMW() {
@@ -269,8 +270,8 @@ deferredRouter()是在sdk内部会判断App是否需要进行场景还原，并�
                 .setSharePlatform(MWConfiguration.ORIGINAL);
         MagicWindowSDK.initSDK(config);
     }
-    private static void registerForMLinkCallback() {
-        MLink mLink = MagicWindowSDK.getMLink();
+    private void registerForMLinkCallback() {
+        MLinkAPI mLink = MLinkAPIFactory.createAPI(mContext.getApplicationContext());
         mLink.registerDefault(new MLinkCallback() {
             @Override
             public void execute(Map<String, String> paramMap, Uri uri, Context context) {
@@ -296,9 +297,9 @@ deferredRouter()是在sdk内部会判断App是否需要进行场景还原，并�
         Uri mLink = intent.getData();
         setIntent(intent);
         if (mLink != null) {
-            MagicWindowSDK.getMLink().router(mLink);
+            MLinkAPIFactory.createAPI(mContext).router(mLink);
         } else {
-            MLink.getInstance(this).checkYYB();
+            MLinkAPIFactory.createAPI(this).checkYYB();
         }
     }
 ```
@@ -314,6 +315,9 @@ A: 可以在应用宝的H5页面里，点击普通打开，并选择继续，就
 <img src="images/android-1.gif" width="300" height="450" />
 
 ### b18.程序在后台时，短链跳转无法跳转到具体页。
+         首先说明一点，Android的默认机制是“程序在后台时，用scheme打开App，默认进入当前页。”
+    所以程序在后台时，通过短链打开App进入后台的当前页是正常的行为。但是如果你想进入具体页的话，可参照下面方法：
+
 A:首先切换一下网络，排除因网络不稳定导致的失败（应用宝跳转需要根据checkYYB()接口去跟后台通信。通过模糊匹配来进行具体页面跳转）。除此之外，可按照以下情况调整：
 情况①，在公共Activity的onStart()方法中调用如下代码。
 ```
@@ -323,9 +327,9 @@ public class BaseActivity extends AppCompatActivity {
     super.onStart();
     Uri mLink = getIntent().getData();
     if (mLink != null) {
-        MagicWindowSDK.getMLink().router(mLink);
+        MLinkAPIFactory.createAPI(this).router(mLink);
     } else {
-        MLink.getInstance(this).checkYYB();
+        MLinkAPIFactory.createAPI(this).checkYYB();
     }
   }
 }
@@ -339,9 +343,9 @@ public class BaseActivity extends AppCompatActivity {
         
         Uri mLink = intent.getData();
         if (mLink != null) {
-            MagicWindowSDK.getMLink().router(mLink);
+            MLinkAPIFactory.createAPI(this).router(mLink);
         } else {
-            MLink.getInstance(this).checkYYB();
+            MLinkAPIFactory.createAPI(this).checkYYB();
         }
    }
 ```
@@ -379,9 +383,9 @@ A:
 其他
 ===
 经过以上分析，我们总结一下常见错误以及注意点：<br>
-①	基础配置不要写错，比如Session和AndroidManifest.xml内的APP_ID。<br>
-②	register不要写错。（注解方式和自定义方式二选一）<br>
-③	router不要漏写，且注意书写的位置。如果有开机动画，或者handler之类，要根据实际情况填写。<br>
-④	如果开启了应用宝，注意checkYYB接口不要遗漏，注意一定要写在耗时的初始化之后，跟进入首页的startActivity放在一起。<br>
-⑤	混淆时注意将魔窗keep出来。<br>
-⑥	后台填写Scheme和配置mLink服务需要注意，其中Scheme需要用全小写字母。如果有数字，数字不能放在开头。<br>
+① 基础配置不要写错，比如Session和AndroidManifest.xml内的APP_ID。<br>
+② register不要写错。（注解方式和自定义方式二选一）<br>
+③ router不要漏写，且注意书写的位置。如果有开机动画，或者handler之类，要根据实际情况填写。<br>
+④ 如果开启了应用宝，注意checkYYB接口不要遗漏，注意一定要写在耗时的初始化之后，跟进入首页的startActivity放在一起。<br>
+⑤ 混淆时注意将魔窗keep出来。<br>
+⑥ 后台填写Scheme和配置mLink服务需要注意，其中Scheme需要用全小写字母。如果有数字，数字不能放在开头。<br>
